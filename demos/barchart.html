@@ -41,7 +41,7 @@
                  { name:"col3", color:"0000CC" }
                ],
         rows: [ { name: "row 1", values: [5,6,12] }, 
-                { name: "row 2", values: [0.5,9,3] }
+                { name: "row 22", values: [0.5,9,3] }
                ]
       };
     
@@ -50,9 +50,32 @@
       
     }
     
-  </script>
+
+    function updateSize() {
+    var nBytes = 0,
+    oFiles = document.getElementById("uploadInput").files,
+    nFiles = oFiles.length;
+    for (var nFileId = 0; nFileId < nFiles; nFileId++) {
+    nBytes += oFiles[nFileId].size;
+    }
+    var sOutput = nBytes + " bytes";
+    // optional code for multiples approximation
+    for (var aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+    sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+    }
+    // end of optional code
+    document.getElementById("fileNum").innerHTML = nFiles;
+    document.getElementById("fileSize").innerHTML = sOutput;
+    }
+    </script>
 </head>
-<body style="margin:0; padding:0; background-color:#000;">
+<body style="margin:0; padding:0; background-color:#0332;">
+testing
+<form name="uploadForm">
+    <p><input id="uploadInput" type="file" name="myFiles" onchange="updateSize();" multiple> selected files: <span id="fileNum">0</span>; total size: <span id="fileSize">0</span></p>
+    <p><input type="submit" value="Send file"></p>
+</form>
+testing
   <div id="threegraphs-valuelable">
     sss
   </div>
