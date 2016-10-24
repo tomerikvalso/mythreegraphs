@@ -936,15 +936,88 @@ THREEGRAPHS.animate = function ( obj, type ){
  * BAR CHART OBJECT
  */
 
-THREEGRAPHS.BarChart = function ( schema ) {
-  
+THREEGRAPHS.BarChart = function ( schemafromfile ) {
+
+//alert ( Object.prototype.toString.call(schema) );
+//var schema = JSON.stringify(      schema2  );
+//var schema2 = JSON.parse(schema);
+
+// schema = schema2
+
+/*for (var key in schema) {
+  if (schema.hasOwnProperty(key)) {
+    console.log(key + " -> " + schema[key]);
+  }
+}*/
+
+var schema = {
+cols: [ { name:"col1", color:"CC0000" },
+{ name:"col2", color:"00CC00" },
+{ name:"col3", color:"0000CC" }
+],
+rows: [ { name: "row 1", values: [5,6,12] },
+{ name: "row 1", values: [5,6,12] },
+{ name: "row 22", values: [6,9,3] }
+]
+};
+
+//schema = sampleData2;
+var tomerik = 'tomerik'
+schema.cols = [ { name:"col1", color:"333333" },
+{ name:"col2", color:"333333" },
+{ name:"col3", color:"333333" }];
+
+schema.rows[0].name = schemafromfile;
+
+var rowsarray = schemafromfile.split("\n");
+console.log ("lengde er " + rowsarray.length)
+for   (  linecounter = 0 ; linecounter <  rowsarray.length ; linecounter ++  ) {
+console.log ("linecounter er " + linecounter)
+ //coloumn names
+    alert('fant raden ' +rowsarray[linecounter] );
+    var linefromfilearray = rowsarray[linecounter].split(",");
+
+    for   (  columncounter = 0 ; columncounter <  linefromfilearray.length; columncounter ++  ) {
+        alert('fant verdi ' +linefromfilearray[columncounter] );
+         if (linecounter == 0 && columncounter==0 ){
+         }
+        // = 0 means columnsnames
+          else if (linecounter == 0 && columncounter>0 ) {
+              console.log ( 'addning col names to: ');
+              console.log ( linefromfilearray[columncounter]);
+              schema.cols[columncounter-1].name=linefromfilearray[columncounter];
+           } else if ( linecounter > 0 && columncounter == 0 ) {
+           console.log ( 'addning row names to: ');
+           console.log (linefromfilearray[columncounter] );
+            schema.rows[linecounter-1].name = linefromfilearray[columncounter];
+            }
+            else {
+             //datavalues
+            console.log('adding data array' );
+            console.log('linecounter ' + linecounter );
+            console.log('columncounter ' + columncounter );
+            console.log ('value ' + linefromfilearray[columncounter] );
+             schema.rows[linecounter-1].values[columncounter-1] = linefromfilearray[columncounter];
+            }
+    } // end for loop inner
+
+} // end for loop
+
+//var result;
+//result = schema.split(",");
+
   this.schema = schema || 0;
   this.dataValues = [];
+
   for ( var i=0; i<schema.rows.length; i++ ){
     this.dataValues[i] = [];
     for( var j=0; j<schema.cols.length; j++ ){
+    //alert ( 'matrisseplassering er '  + i );
+    // alert (   schema.cols.length-j-1);
+    // alert (  schema.rows[i].values[j]);
+
       this.dataValues[i][schema.cols.length-j-1] = schema.rows[i].values[j];
-	
+
     }
   }
   
