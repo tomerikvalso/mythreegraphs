@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+        "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>barchart</title>
-	<meta name="generator" content="TextMate http://macromates.com/">
-	<meta name="author" content="Yane Frenski">
-	
-	<style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>barchart</title>
+    <meta name="generator" content="TextMate http://macromates.com/">
+    <meta name="author" content="Yane Frenski">
+
+    <style>
 	  #threegraphs-valuelable{
       color: #fff;
       text-shadow: 1px 1px 2px #000;
@@ -23,61 +23,51 @@
       border: 1px solid #fff;
     }
   </style>
-	
-	<script type="text/javascript" src="../lib/three.min.js"></script>
-  <script type="text/javascript" src="../lib/TrackballControls.js"></script>
-  <script type="text/javascript" src="../lib/TrackballControlsTouch.js"></script>
-  <script type="text/javascript" src="../src/ThreeGraphs.js"></script>
-  <script type="text/javascript" src="../fonts/helvetiker_bold.typeface.js"></script>
-  <script type="text/javascript">
-  
-    window.onload = function(){
-      
-      THREEGRAPHS.Settings.staticUrl = '../img';
-      
-      var sampleData = { 
-        cols: [ { name:"col1", color:"CC0000" }, 
-                 { name:"col2", color:"00CC00" },
-                 { name:"col3", color:"0000CC" }
-               ],
-        rows: [ { name: "row 1", values: [5,6,12] }, 
-                { name: "row 22", values: [0.5,9,3] }
-               ]
-      };
-    
-      var newBarChart = new THREEGRAPHS.BarChart ( sampleData );
-      newBarChart.init();
-      
-    }
-    
 
-    function updateSize() {
-    var nBytes = 0,
-    oFiles = document.getElementById("uploadInput").files,
-    nFiles = oFiles.length;
-    for (var nFileId = 0; nFileId < nFiles; nFileId++) {
-    nBytes += oFiles[nFileId].size;
-    }
-    var sOutput = nBytes + " bytes";
-    // optional code for multiples approximation
-    for (var aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
-    sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
-    }
-    // end of optional code
-    document.getElementById("fileNum").innerHTML = nFiles;
-    document.getElementById("fileSize").innerHTML = sOutput;
-    }
+    <script type="text/javascript" src="../lib/three.min.js"></script>
+    <script type="text/javascript" src="../lib/TrackballControls.js"></script>
+    <script type="text/javascript" src="../lib/TrackballControlsTouch.js"></script>
+    <script type="text/javascript" src="../src/ThreeGraphs.js"></script>
+    <script type="text/javascript" src="../fonts/helvetiker_bold.typeface.js"></script>
+    <script type="text/javascript">
     </script>
 </head>
 <body style="margin:0; padding:0; background-color:#0332;">
 testing
-<form name="uploadForm">
-    <p><input id="uploadInput" type="file" name="myFiles" onchange="updateSize();" multiple> selected files: <span id="fileNum">0</span>; total size: <span id="fileSize">0</span></p>
-    <p><input type="submit" value="Send file"></p>
-</form>
-testing
-  <div id="threegraphs-valuelable">
+<h1>Text File Reader</h1>
+<div>
+    Select a text file:
+    <input type="file" id="fileInput">
+</div>
+<pre id="fileDisplayArea"><pre>
+    <script src="text.js"></script>
+<script>
+alert('he4');
+THREEGRAPHS.Settings.staticUrl = '../img';
+
+var sampleData = {
+cols: [ { name:"col1", color:"CC0000" },
+{ name:"col2", color:"00CC00" },
+{ name:"col3", color:"0000CC" }
+],
+rows: [ { name: "row 1", values: [5,6,12] },
+{ name: "row 22", values: [6,9,3] },
+{ name: "row 22", values: [6,9,3] },
+{ name: "row 19", values: [6,9,3] }
+]
+};
+
+//var newBarChart = new THREEGRAPHS.BarChart ( sampleData );
+//newBarChart.init();
+</script>
+<div id="threegraphs-valuelable">
     sss
-  </div>
+</div>
+
+<!--  -->
+
+
+
 </body>
+
 </html>
