@@ -942,36 +942,81 @@ THREEGRAPHS.BarChart = function ( schemafromfile ) {
 var schema = {
 cols: [ { name:"col1", color:"CC0000" },
 { name:"col2", color:"00CC00" },
+{ name:"col3", color:"0000CC" },
+{ name:"col3", color:"0000CC" },
+{ name:"col3", color:"0000CC" },
+{ name:"col3", color:"0000CC" },
+{ name:"col3", color:"0000CC" },
+{ name:"col3", color:"0000CC" },
+{ name:"col3", color:"0000CC" },
 { name:"col3", color:"0000CC" }
 ],
 rows: [ { name: "row 1", values: [5,6,12] },
 { name: "row 2", values: [5,6,12] },
+{ name: "row 22", values: [5,6,12] },
+{ name: "row 22", values: [5,6,12] },
+{ name: "row 22", values: [5,6,12] },
+{ name: "row 22", values: [5,6,12] },
+{ name: "row 22", values: [5,6,12] },
 { name: "row 3", values: [6,9,3] }
 ]
 };
 
 var rowsarray = schemafromfile.split("\n");
-console.log ("length is " + rowsarray.length)
-for   (  linecounter = 0 ; linecounter <  rowsarray.length ; linecounter ++  ) {
+
+var linefromfilearray = rowsarray[0].split(",");
+
+console.log ("length222 is " + rowsarray.length)
+console.log ("length333 is " + linefromfilearray.length)
+
+schema = null;
+schema = {
+cols:
+new Array(linefromfilearray.length - 1),
+rows:
+new Array (rowsarray.length  - 1)
+};
+
+
+for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++  ) {
+ for   (  columncounter = 0 ; columncounter <  linefromfilearray.length - 1 ; columncounter ++  ) {
+         schema.cols[columncounter] =  { name:"col50", color:"CC0000" };
+         schema.rows[linecounter] =  { name: "row 2", values: new Array (linefromfilearray.length - 1) };
+
+ }
+}
+
+console.log ("length444 is " + schema.cols.length)
+console.log ("length555 is " + schema.rows.length)
+
+
+
+
+for   (  linecounter = 0 ; linecounter <  rowsarray.length  ; linecounter ++  ) {
 console.log ("linecounter is " + linecounter)
  //coloumn names
     console.log('found line ' +rowsarray[linecounter] );
     var linefromfilearray = rowsarray[linecounter].split(",");
 
-    for   (  columncounter = 0 ; columncounter <  linefromfilearray.length; columncounter ++  ) {
+    for   (  columncounter = 0 ; columncounter <  linefromfilearray.length ; columncounter ++  ) {
         console.log('found  value ' +linefromfilearray[columncounter] );
          // do nothing as this field is not in use
          if (linecounter == 0 && columncounter==0 ){
          }
         // linecounter = 0 means columnsnames
           else if (linecounter == 0 && columncounter>0 ) {
+
               schema.cols[columncounter-1].name=linefromfilearray[columncounter];
            } else if ( linecounter > 0 && columncounter == 0 ) {
             schema.rows[linecounter-1].name = linefromfilearray[columncounter];
+
             }
             else {
              //datavalues
-             schema.rows[linecounter-1].values[columncounter-1] = linefromfilearray[columncounter];
+             linefromfilearray[columncounter]
+             if (typeof linefromfilearray[columncounter] != 'undefined')
+             //schema.rows[linecounter-1].values[columncounter-1]
+              schema.rows[linecounter-1].values[columncounter-1] = linefromfilearray[columncounter];
             }
     } // end for loop inner
 
@@ -980,9 +1025,12 @@ console.log ("linecounter is " + linecounter)
   this.schema = schema || 0;
   this.dataValues = [];
 
-  for ( var i=0; i<schema.rows.length; i++ ){
+  for ( var i=0; i<schema.rows.length  ; i++ ){
     this.dataValues[i] = [];
-    for( var j=0; j<schema.cols.length; j++ ){
+    for( var j=0; j<schema.cols.length ; j++ ){
+      console.log ( ' i og j ' + i + ' ' + j );
+       console.log ( ' insert value ' + schema.rows[i].values[j] );
+         if (typeof yourvar != 'undefined') schema.rows[i].values[j] = 4;
       this.dataValues[i][schema.cols.length-j-1] = schema.rows[i].values[j];
 
     }
