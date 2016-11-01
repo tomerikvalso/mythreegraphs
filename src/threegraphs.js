@@ -938,30 +938,6 @@ THREEGRAPHS.animate = function ( obj, type ){
 
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
 
-// initial values that will be overwritten
-var schema = {
-cols: [ { name:"col1", color:"CC0000" },
-{ name:"col2", color:"00CC00" },
-{ name:"col3", color:"0000CC" },
-{ name:"col3", color:"0000CC" },
-{ name:"col3", color:"0000CC" },
-{ name:"col3", color:"0000CC" },
-{ name:"col3", color:"0000CC" },
-{ name:"col3", color:"0000CC" },
-{ name:"col3", color:"0000CC" },
-{ name:"col3", color:"0000CC" }
-],
-rows: [ { name: "row 1", values: [5,6,12] },
-{ name: "row 2", values: [5,6,12] },
-{ name: "row 22", values: [5,6,12] },
-{ name: "row 22", values: [5,6,12] },
-{ name: "row 22", values: [5,6,12] },
-{ name: "row 22", values: [5,6,12] },
-{ name: "row 22", values: [5,6,12] },
-{ name: "row 3", values: [6,9,3] }
-]
-};
-
 var rowsarray = schemafromfile.split("\n");
 
 var linefromfilearray = rowsarray[0].split(",");
@@ -969,8 +945,7 @@ var linefromfilearray = rowsarray[0].split(",");
 console.log ("length222 is " + rowsarray.length)
 console.log ("length333 is " + linefromfilearray.length)
 
-schema = null;
-schema = {
+var schema = {
 cols:
 new Array(linefromfilearray.length - 1),
 rows:
@@ -981,7 +956,7 @@ new Array (rowsarray.length  - 1)
 for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  linefromfilearray.length - 1 ; columncounter ++  ) {
          schema.cols[columncounter] =  { name:"col50", color:"CC0000" };
-         schema.rows[linecounter] =  { name: "row 2", values: new Array (linefromfilearray.length - 1) };
+         schema.rows[linecounter] =  { name: "row x", values: new Array (linefromfilearray.length - 1) };
 
  }
 }
@@ -1030,7 +1005,6 @@ console.log ("linecounter is " + linecounter)
     for( var j=0; j<schema.cols.length ; j++ ){
       console.log ( ' i og j ' + i + ' ' + j );
        console.log ( ' insert value ' + schema.rows[i].values[j] );
-         if (typeof yourvar != 'undefined') schema.rows[i].values[j] = 4;
       this.dataValues[i][schema.cols.length-j-1] = schema.rows[i].values[j];
 
     }
