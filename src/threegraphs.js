@@ -910,7 +910,7 @@ THREEGRAPHS.animate = function ( obj, type ){
         if ( obj.INTERSECTED ) {
           obj.INTERSECTED.material.emissive.setHex(
             obj.INTERSECTED.currentHex );
-          //mainElements[obj.intersectedId].hideLabel();
+          mainElements[obj.intersectedId].hideLabel();
         }
         obj.INTERSECTED = intersects[ 0 ].object;
         obj.INTERSECTED.currentHex = obj.INTERSECTED.material.emissive.getHex();
@@ -924,7 +924,7 @@ THREEGRAPHS.animate = function ( obj, type ){
       if ( obj.INTERSECTED ) {
         obj.INTERSECTED.material.emissive.setHex(
           obj.INTERSECTED.currentHex );
-     //   mainElements[obj.intersectedId].hideLabel();
+     mainElements[obj.intersectedId].hideLabel();
       }
       obj.intersectedId = null;
       obj.INTERSECTED = null;
@@ -967,11 +967,18 @@ rows:
 new Array (rowsarray.length  - 1)
 };
 
-
+var colors = ["123456", "654321", "981256"];
+var colorcounter = 0
 for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  linefromfilearray.length - 1 ; columncounter ++  ) {
-         schema.cols[columncounter] =  { name:"col50", color:"CC0000" };
+         schema.cols[columncounter] =  { name:"col50", color:colors[colorcounter] };
          schema.rows[linecounter] =  { name: "row x", values: new Array (linefromfilearray.length - 1) };
+
+         if (colorcounter == 2 ) {
+            colorcounter = 0 ;
+         } else {
+            colorcounter = colorcounter + 1;
+         }
 
  }
 }
@@ -987,6 +994,17 @@ console.log ("linecounter is " + linecounter)
  //coloumn names
     console.log('found line ' +rowsarray[linecounter] );
     var linefromfilearray = rowsarray[linecounter].split(",");
+    // wash linefromfilearray
+    for ( var k = 0 ; k < linefromfilearray.length ; k++ ) {
+           linefromfilearray[k] = linefromfilearray[k].replace('""','0')
+            linefromfilearray[k] = linefromfilearray[k].replace('"','')
+     }
+
+    for ( var k = 0 ; k < linefromfilearray.length ; k++ ) {
+        if ( parseInt(linefromfilearray[k])== 'NaN' ) {
+        linefromfilearray[k] = 0;
+        }
+    }
 
     for   (  columncounter = 0 ; columncounter <  linefromfilearray.length ; columncounter ++  ) {
         console.log('found  value ' +linefromfilearray[columncounter] );
