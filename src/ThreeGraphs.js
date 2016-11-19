@@ -972,15 +972,18 @@ var colorcounter = 0
 for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  linefromfilearray.length - 1 ; columncounter ++  ) {
          schema.cols[columncounter] =  { name:"col50", color:colors[colorcounter] };
+         console.log('color  er ' + colors[colorcounter] + '  ' + columncounter );
          schema.rows[linecounter] =  { name: "row x", values: new Array (linefromfilearray.length - 1) };
 
-         if (colorcounter == 2 ) {
-            colorcounter = 0 ;
-         } else {
-            colorcounter = colorcounter + 1;
-         }
+
 
  }
+
+  if (colorcounter == 2 ) {
+             colorcounter = 0 ;
+  } else {
+     colorcounter = colorcounter + 1;
+  }
 }
 
 console.log ("length444 is " + schema.cols.length)
