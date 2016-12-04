@@ -6,8 +6,9 @@ window.onload = function() {
 		fileInput.addEventListener('change', function(e) {
 			var file = fileInput.files[0];
 			var textType = /text.*/;
-
+            alert( 'hei2 '   ); // hvor fikse globale variabler??
 			if (file.type.match(textType)) {
+
 				var reader = new FileReader();
 
 				reader.onload = function(e) {

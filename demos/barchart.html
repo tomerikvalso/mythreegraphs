@@ -34,13 +34,27 @@
 </head>
 <body>
 
+<form>
+    <input type="radio" name="bartype" onchange="hei();" value="type1" checked> Top Row and Column1 for names<br>
+    <input type="radio" name="bartype" value="type2"> Top Row only<br>
+    <input type="radio" name="bartype" value="other"> Use only row and col no
+</form>
+
 <h1>Text File Reader</h1>
 <div>
     Select a text file:
     <input type="file" id="fileInput">
 </div>
 
+<script>
+    function hei() {
+        alert('hei');
+        var input = 22;
+        var i2 = input; // er denne bare tilgjengelig et post og get? document.getElementById("input");
 
+        //alert (input);
+    }
+</script>
 
 <script src="text.js"></script>
 
