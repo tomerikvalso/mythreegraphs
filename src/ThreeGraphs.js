@@ -953,12 +953,13 @@ THREEGRAPHS.animate = function ( obj, type ){
 
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
 
+var csvtype = window.yourGlobalVariable;
+
 var rowsarray = schemafromfile.split("\n");
 
 var linefromfilearray = rowsarray[0].split(",");
 
-console.log ("length222 is " + rowsarray.length)
-console.log ("length333 is " + linefromfilearray.length)
+console.log('er ' + csvtype);
 
 var schema = {
 cols:
@@ -972,7 +973,6 @@ var colorcounter = 0
 for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  linefromfilearray.length - 1 ; columncounter ++  ) {
          schema.cols[columncounter] =  { name:"col50", color:colors[colorcounter] };
-         console.log('color  er ' + colors[colorcounter] + '  ' + columncounter );
          schema.rows[linecounter] =  { name: "row x", values: new Array (linefromfilearray.length - 1) };
 
 
@@ -986,8 +986,6 @@ for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++ 
   }
 }
 
-console.log ("length444 is " + schema.cols.length)
-console.log ("length555 is " + schema.rows.length)
 
 
 
