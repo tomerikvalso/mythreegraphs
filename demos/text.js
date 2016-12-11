@@ -6,20 +6,24 @@ window.onload = function() {
 		fileInput.addEventListener('change', function(e) {
 			var file = fileInput.files[0];
 			var textType = /text.*/;
-            alert( 'hei2 '   ); // hvor fikse globale variabler??
-			if (file.type.match(textType)) {
+        	if (file.type.match(textType)) {
 
 				var reader = new FileReader();
 
 				reader.onload = function(e) {
 					//fileDisplayArea.innerText = reader.result;
-					newBarChart = new THREEGRAPHS.BarChart ( reader.result );
+				      window.myinit = reader.result;
+             newBarChart = new THREEGRAPHS.BarChart ( reader.result );
                     newBarChart.init();
+
+
 				}
 
 				reader.readAsText(file);
 			} else {
 				fileDisplayArea.innerText = "File not supported!";
 			}
+       // hei4(window.myinit);
+
 		});
 }

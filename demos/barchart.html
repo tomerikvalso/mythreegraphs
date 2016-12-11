@@ -37,7 +37,7 @@
 <form>
     <input type="radio" name="bartype" onchange="hei();" value="type1" checked> Top Row and Column1 for names<br>
     <input type="radio" name="bartype" onchange="hei2();"value="type2"> Top Row only<br>
-    <input type="radio" name="bartype" value="other"> Use only row and col no
+    <input type="radio" name="bartype" onchange="hei2(); value="type3"> Use only row and col no
 </form>
 
 <h1>Text File Reader</h1>
@@ -52,6 +52,7 @@
         var i2 = input; // er denne bare tilgjengelig et post og get? document.getElementById("input");
         window.yourGlobalVariable = 'type1';
         var i3 = window.yourGlobalVariable;
+        window.myinit = 'init';
 
     }
 
@@ -60,11 +61,18 @@
          window.yourGlobalVariable = 'type2';
     }
 
+    function hei3() {
+         window.yourGlobalVariable = 'type3';
+    }
+
+
+
+
+window.yourGlobalVariable = 'type1';
+
 </script>
 
 <script src="text.js"></script>
-
-
 <!--  -->
 
 
