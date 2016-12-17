@@ -1016,10 +1016,15 @@ console.log ("linecounter is " + linecounter)
           else if (linecounter == 0 && columncounter>0 ) {
 
               schema.cols[columncounter-1].name=linefromfilearray[columncounter];
-           } else if ( linecounter > 0 && columncounter == 0 ) {
+           } else if ( linecounter > 0 && columncounter == 0 && csvtype == 'type1' ) {
             schema.rows[linecounter-1].name = linefromfilearray[columncounter];
 
             }
+             else if ( linecounter > 0 && columncounter == 0 && csvtype == 'type2' ) {
+                        schema.rows[linecounter-1].name = 'daejaa!';
+                        alert('tester');
+
+                        }
             else {
              //datavalues
              linefromfilearray[columncounter]
