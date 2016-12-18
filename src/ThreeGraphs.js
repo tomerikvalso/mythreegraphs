@@ -1007,32 +1007,57 @@ console.log ("linecounter is " + linecounter)
         }
     }
 
+    if (csvtype == 'type1') {
+        for   (  columncounter = 0 ; columncounter <  linefromfilearray.length ; columncounter ++  ) {
+                console.log('found  value ' +linefromfilearray[columncounter] );
+                 // do nothing as this field is not in use
+                 if (linecounter == 0 && columncounter==0 ){
+                 }
+                // linecounter = 0 means columnsnames
+                  else if (linecounter == 0 && columncounter>0 ) {
+
+                      schema.cols[columncounter-1].name=linefromfilearray[columncounter];
+                   } else if ( linecounter > 0 && columncounter == 0 ) {
+                    schema.rows[linecounter-1].name = linefromfilearray[columncounter];
+
+                    }
+
+                    else {
+                     //datavalues
+
+                     if (typeof linefromfilearray[columncounter] != 'undefined')
+                     //schema.rows[linecounter-1].values[columncounter-1]
+                      schema.rows[linecounter-1].values[columncounter-1] = parseInt(linefromfilearray[columncounter]);
+                    }
+            } // end for loop inner
+    } else if ( csvtype == 'type2')    {
     for   (  columncounter = 0 ; columncounter <  linefromfilearray.length ; columncounter ++  ) {
-        console.log('found  value ' +linefromfilearray[columncounter] );
-         // do nothing as this field is not in use
-         if (linecounter == 0 && columncounter==0 ){
-         }
-        // linecounter = 0 means columnsnames
-          else if (linecounter == 0 && columncounter>0 ) {
+            console.log('found  value ' +linefromfilearray[columncounter] );
+             // do nothing as this field is not in use
+             if (linecounter == 0 && columncounter==0 ){
+             }
+            // linecounter = 0 means columnsnames
+              else if (linecounter == 0 && columncounter>0 ) {
 
-              schema.cols[columncounter-1].name=linefromfilearray[columncounter];
-           } else if ( linecounter > 0 && columncounter == 0 && csvtype == 'type1' ) {
-            schema.rows[linecounter-1].name = linefromfilearray[columncounter];
+                  schema.cols[columncounter-1].name=linefromfilearray[columncounter];
+               }
+                 else if ( linecounter > 0    ) {
+                            schema.rows[linecounter-1].name = 'daejaa!';
+                            if (typeof linefromfilearray[columncounter] != 'undefined')
+                                             //schema.rows[linecounter-1].values[columncounter-1]
+                                              schema.rows[linecounter-1].values[columncounter] = parseInt(linefromfilearray[columncounter]);
 
-            }
-             else if ( linecounter > 0 && columncounter == 0 && csvtype == 'type2' ) {
-                        schema.rows[linecounter-1].name = 'daejaa!';
-                        alert('tester');
+                            }
+                else {
+                 //datavalues
+                alert('crap');
 
-                        }
-            else {
-             //datavalues
-             linefromfilearray[columncounter]
-             if (typeof linefromfilearray[columncounter] != 'undefined')
-             //schema.rows[linecounter-1].values[columncounter-1]
-              schema.rows[linecounter-1].values[columncounter-1] = parseInt(linefromfilearray[columncounter]);
-            }
-    } // end for loop inner
+                }
+        } // end for loop inner
+    }
+    else {
+    }
+
 
 } // end for loop
 
