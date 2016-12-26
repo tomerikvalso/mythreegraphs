@@ -962,11 +962,31 @@ var linefromfilearray = rowsarray[0].split(",");
 console.log('er ' + csvtype);
 
 var schema = {
+    cols:
+    new Array( 50 ),
+    rows:
+    new Array  ( 50 )
+    };
+
+if ( csvtype == 'type1') {
+schema = {
 cols:
 new Array(linefromfilearray.length - 1),
 rows:
 new Array (rowsarray.length  - 1)
 };
+}
+
+
+if ( csvtype == 'type2') {
+alert('ok');
+schema = {
+cols:
+new Array( 50 ),
+rows:
+new Array  ( 50 )
+};
+}
 
 var colors = ["123456", "654321", "981256"];
 var colorcounter = 0
@@ -1034,17 +1054,15 @@ console.log ("linecounter is " + linecounter)
     for   (  columncounter = 0 ; columncounter <  linefromfilearray.length ; columncounter ++  ) {
             console.log('found  value ' +linefromfilearray[columncounter] );
              // do nothing as this field is not in use
-             if (linecounter == 0 && columncounter==0 ){
-             }
-            // linecounter = 0 means columnsnames
-              else if (linecounter == 0 && columncounter>0 ) {
-
-                  schema.cols[columncounter-1].name=linefromfilearray[columncounter];
+               if (linecounter == 0 ) {
+                 console.log( 'columncounter er '  + columncounter);
+                  schema.cols[columncounter].name=linefromfilearray[columncounter];
                }
                  else if ( linecounter > 0    ) {
                             schema.rows[linecounter-1].name = 'daejaa!';
                             if (typeof linefromfilearray[columncounter] != 'undefined')
                                              //schema.rows[linecounter-1].values[columncounter-1]
+                                              console.log('found  value second time  columncounter' + columncounter +' +linefromfilearray[columncounter]' + linefromfilearray[columncounter] );
                                               schema.rows[linecounter-1].values[columncounter] = parseInt(linefromfilearray[columncounter]);
 
                             }
