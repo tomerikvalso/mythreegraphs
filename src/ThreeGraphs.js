@@ -83,20 +83,20 @@ THREEGRAPHS.Utils.prototype.getMaxArr = function ( arr ){
 
   for( var i=0; i<arr.length; i++ ){
     for ( var j=0; j<arr[i].length; j++ ){
-    console.log ( 'check   ' + i + ' ' + j +   arr[i][j]);
+   // console.log ( 'check   ' + i + ' ' + j +   arr[i][j]);
       if( parseInt(arr[i][j]) > parseInt(maxVal ) || maxVal ==''){
-console.log ( 'found new max   ' +    arr[i][j]);
+//console.log ( 'found new max   ' +    arr[i][j]);
       maxVal = arr[i][j];
- console.log ( ' new max   ' +   maxVal);
+// console.log ( ' new max   ' +   maxVal);
       } else {
-      console.log ( 'did not fin new max   ' +    arr[i][j]);
+  //    console.log ( 'did not fin new max   ' +    arr[i][j]);
       }
 
-      console.log ( 'kept*' + maxVal +'*');
+    //  console.log ( 'kept*' + maxVal +'*');
 
     }
   }
-  console.log ( 'max oppdatert er ' + maxVal);
+  //console.log ( 'max oppdatert er ' + maxVal);
   return maxVal;
 };
 
@@ -113,8 +113,8 @@ THREEGRAPHS.Utils.prototype.getMinArr = function ( arr ){
             console.log ( 'kept   ' || minVal);
     }
   }
-  console.log ('min er ' + minVal );
-  return minVal;
+
+   return minVal;
 };
 
 /**
@@ -962,7 +962,7 @@ var columnsfromline = rowsarray[0].split(",");
 var antallkolonnerimatrise = 0;
 
 
-if(csvtype = 'type1') {
+if(csvtype == 'type1') {
 antallkolonnerimatrise =  columnsfromline.length - 1;
 } else if (csvtype = 'type2') {
 antallkolonnerimatrise = columnsfromline.length ;
@@ -1040,15 +1040,15 @@ console.log ("linecounter is " + linecounter)
                     }
             } // end for loop inner
     } else if ( csvtype == 'type2')    {
+    console.log ( 'type2')
     for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
             console.log('found  value ' +columnsfromline[columncounter] );
              // do nothing as this field is not in use
-             if (linecounter == 0 && columncounter==0 ){
-             }
-            // linecounter = 0 means columnsnames
-              else if (linecounter == 0 && columncounter>0 ) {
 
-                  schema.cols[columncounter-1].name=columnsfromline[columncounter];
+            // linecounter = 0 means columnsnames
+              if (linecounter == 0  ) {
+
+                  schema.cols[columncounter].name=columnsfromline[columncounter];
                }
                  else if ( linecounter > 0    ) {
                             schema.rows[linecounter-1].name = 'daejaa!';
@@ -1063,7 +1063,9 @@ console.log ("linecounter is " + linecounter)
 
                 }
         } // end for loop inner
+
     }
+    // type3
     else {
     }
 
@@ -1076,8 +1078,8 @@ console.log ("linecounter is " + linecounter)
   for ( var i=0; i<schema.rows.length  ; i++ ){
     this.dataValues[i] = [];
     for( var j=0; j<schema.cols.length ; j++ ){
-      console.log ( ' i og j ' + i + ' ' + j );
-      console.log ( ' insert value ' + schema.rows[i].values[j] );
+    //  console.log ( ' i og j ' + i + ' ' + j );
+    //  console.log ( ' insert value ' + schema.rows[i].values[j] );
       this.dataValues[i][schema.cols.length-j-1] = parseInt(schema.rows[i].values[j]);
       console.log ( ' after insert value *' +  this.dataValues[i][schema.cols.length-j-1] + '*' );
     }
