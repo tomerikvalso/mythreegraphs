@@ -957,43 +957,32 @@ var csvtype = window.yourGlobalVariable;
 
 var rowsarray = schemafromfile.split("\n");
 
-var linefromfilearray = rowsarray[0].split(",");
+var columnsfromline = rowsarray[0].split(",");
+
+var antallkolonnerimatrise = 0;
+
+
+if(csvtype = 'type1') {
+antallkolonnerimatrise =  columnsfromline.length - 1;
+} else if (csvtype = 'type2') {
+antallkolonnerimatrise = columnsfromline.length ;
+}
 
 console.log('er ' + csvtype);
 
 var schema = {
-    cols:
-    new Array( 50 ),
-    rows:
-    new Array  ( 50 )
-    };
-
-if ( csvtype == 'type1') {
-schema = {
 cols:
-new Array(linefromfilearray.length - 1),
+new Array(columnsfromline.length - 1),
 rows:
 new Array (rowsarray.length  - 1)
 };
-}
-
-
-if ( csvtype == 'type2') {
-alert('ok');
-schema = {
-cols:
-new Array( 50 ),
-rows:
-new Array  ( 50 )
-};
-}
 
 var colors = ["123456", "654321", "981256"];
 var colorcounter = 0
 for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++  ) {
- for   (  columncounter = 0 ; columncounter <  linefromfilearray.length - 1 ; columncounter ++  ) {
+ for   (  columncounter = 0 ; columncounter <  antallkolonnerimatrise ; columncounter ++  ) {
          schema.cols[columncounter] =  { name:"col50", color:colors[colorcounter] };
-         schema.rows[linecounter] =  { name: "row x", values: new Array (linefromfilearray.length - 1) };
+         schema.rows[linecounter] =  { name: "row x", values: new Array (columnsfromline.length - 1) };
 
 
 
@@ -1014,56 +1003,58 @@ for   (  linecounter = 0 ; linecounter <  rowsarray.length  ; linecounter ++  ) 
 console.log ("linecounter is " + linecounter)
  //coloumn names
     console.log('found line ' +rowsarray[linecounter] );
-    var linefromfilearray = rowsarray[linecounter].split(",");
-    // wash linefromfilearray
-    for ( var k = 0 ; k < linefromfilearray.length ; k++ ) {
-           linefromfilearray[k] = linefromfilearray[k].replace('""','0')
-            linefromfilearray[k] = linefromfilearray[k].replace('"','')
+    var columnsfromline = rowsarray[linecounter].split(",");
+    // wash columnsfromline
+    for ( var k = 0 ; k < antallkolonnerimatrise ; k++ ) {
+           columnsfromline[k] = columnsfromline[k].replace('""','0')
+            columnsfromline[k] = columnsfromline[k].replace('"','')
      }
 
-    for ( var k = 0 ; k < linefromfilearray.length ; k++ ) {
-        if ( parseInt(linefromfilearray[k])== 'NaN' ) {
-        linefromfilearray[k] = 0;
+    for ( var k = 0 ; k < columnsfromline.length ; k++ ) {
+        if ( parseInt(columnsfromline[k])== 'NaN' ) {
+        columnsfromline[k] = 0;
         }
     }
 
     if (csvtype == 'type1') {
-        for   (  columncounter = 0 ; columncounter <  linefromfilearray.length ; columncounter ++  ) {
-                console.log('found  value ' +linefromfilearray[columncounter] );
+        for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
+                console.log('found  value ' +columnsfromline[columncounter] );
                  // do nothing as this field is not in use
                  if (linecounter == 0 && columncounter==0 ){
                  }
                 // linecounter = 0 means columnsnames
                   else if (linecounter == 0 && columncounter>0 ) {
 
-                      schema.cols[columncounter-1].name=linefromfilearray[columncounter];
+                     schema.cols[columncounter-1].name=columnsfromline[columncounter];
                    } else if ( linecounter > 0 && columncounter == 0 ) {
-                    schema.rows[linecounter-1].name = linefromfilearray[columncounter];
+                    schema.rows[linecounter-1].name = columnsfromline[columncounter];
 
                     }
 
                     else {
                      //datavalues
 
-                     if (typeof linefromfilearray[columncounter] != 'undefined')
+                     if (typeof columnsfromline[columncounter] != 'undefined')
                      //schema.rows[linecounter-1].values[columncounter-1]
-                      schema.rows[linecounter-1].values[columncounter-1] = parseInt(linefromfilearray[columncounter]);
+                      schema.rows[linecounter-1].values[columncounter-1] = parseInt(columnsfromline[columncounter]);
                     }
             } // end for loop inner
     } else if ( csvtype == 'type2')    {
-    for   (  columncounter = 0 ; columncounter <  linefromfilearray.length ; columncounter ++  ) {
-            console.log('found  value ' +linefromfilearray[columncounter] );
+    for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
+            console.log('found  value ' +columnsfromline[columncounter] );
              // do nothing as this field is not in use
-               if (linecounter == 0 ) {
-                 console.log( 'columncounter er '  + columncounter);
-                  schema.cols[columncounter].name=linefromfilearray[columncounter];
+             if (linecounter == 0 && columncounter==0 ){
+             }
+            // linecounter = 0 means columnsnames
+              else if (linecounter == 0 && columncounter>0 ) {
+
+                  schema.cols[columncounter-1].name=columnsfromline[columncounter];
                }
                  else if ( linecounter > 0    ) {
                             schema.rows[linecounter-1].name = 'daejaa!';
-                            if (typeof linefromfilearray[columncounter] != 'undefined')
+                            if (typeof columnsfromline[columncounter] != 'undefined')
                                              //schema.rows[linecounter-1].values[columncounter-1]
-                                              console.log('found  value second time  columncounter' + columncounter +' +linefromfilearray[columncounter]' + linefromfilearray[columncounter] );
-                                              schema.rows[linecounter-1].values[columncounter] = parseInt(linefromfilearray[columncounter]);
+                                              schema.rows[linecounter-1].values[columncounter] = parseInt(columnsfromline[columncounter]);
 
                             }
                 else {
@@ -1940,7 +1931,7 @@ THREEGRAPHS.AreaChart.prototype = {
       this.intersobj[this.areas.length-1] = this.areas[this.areas.length-1].areaobj;
       this.intersobj[this.areas.length-1].elemId = this.areas.length-1;
     }
-    
+
     // Adding the lights
     var light = new THREE.DirectionalLight( 0x999999 );
     light.position.set( 1, -1, 1 ).normalize();
@@ -1961,18 +1952,18 @@ THREEGRAPHS.AreaChart.prototype = {
     light.shadowDarkness = 0.3;
     light.shadowBias = 0.0001;
     this.scene.add( light );
-    
+
   },
-  
+
   initCanvasScene: function () {
-    
+
     // Setting the Canvas renderer
     if ( !this.canvas ) {
       this.renderer = new THREE.CanvasRenderer(  );
     }else{
       this.renderer = new THREE.CanvasRenderer( { canvas: this.canvas } );
     }
-    
+
     this.renderer.setSize( window.innerWidth, window.innerHeight );
 
     if ( !this.domContainer ) {
@@ -1983,16 +1974,16 @@ THREEGRAPHS.AreaChart.prototype = {
     }
 
     this.domContainer.appendChild( this.renderer.domElement );
-    
+
 
     // Adding the grounds
-    
+
     var sqStep = THREEGRAPHS.Settings.squareStep;
     var valH = THREEGRAPHS.Settings.valHeight
 
     var groundSizeX = sqStep*this.schema.rows.length;
     var groundSizeY = sqStep*this.schema.cols.length;
-    var lineMaterial = new THREE.LineBasicMaterial( { color: 0xaaaaaa, 
+    var lineMaterial = new THREE.LineBasicMaterial( { color: 0xaaaaaa,
                                                       opacity: 0.8 } );
 
     // Adding the X ground
@@ -2056,17 +2047,17 @@ THREEGRAPHS.AreaChart.prototype = {
 
     // Adding areas
     for ( var i=0; i<this.schema.cols.length; i++ ) {
-      this.areas.push( new THREEGRAPHS.AreaPoly( 
-                        this.schema.cols[i].color, 
-                        i, 
-                        this.dataValues[i], 
+      this.areas.push( new THREEGRAPHS.AreaPoly(
+                        this.schema.cols[i].color,
+                        i,
+                        this.dataValues[i],
                         this.valTextColor,
-                        'light', 
+                        'light',
                         document.getElementById( THREEGRAPHS.Settings.labelId),
-                        { row: this.schema.rows, 
+                        { row: this.schema.rows,
                           col: this.schema.cols[i].name },
-                          this.niceScale.niceMin, 
-                          this.niceScale.range, 
+                          this.niceScale.niceMin,
+                          this.niceScale.range,
                           THREEGRAPHS.Settings.valHeight ) );
       this.areas[this.areas.length-1].addArea( this.scene );
       // Adds the areas objects to ones that need to be checked for intersection
@@ -2094,11 +2085,11 @@ THREEGRAPHS.AreaChart.prototype = {
     this.scene.add( directionalLight );
 
   },
-  
+
   init: function() { //scene initialization
-    
+
     var utils = new THREEGRAPHS.Utils( );
-    
+
     // Detecting the renderer:
     var browserRender = utils.detectRenderer ( );
 
@@ -2114,19 +2105,19 @@ THREEGRAPHS.AreaChart.prototype = {
     else {
       utils.nonSupportedBrowsers();
     }
-    
+
     this.controls = utils.mouseControls ( this.renderer, this.camera , 500, 3500 );
     THREEGRAPHS.animate ( this, 'area' );
-    
+
   }
-  
+
 }
 
 
 /**
  * WORLD CHART OBJECT
  */
- 
+
 THREEGRAPHS.WorldChart = function ( schema ) {
 
   this.schema = schema || 0;
@@ -2139,7 +2130,7 @@ THREEGRAPHS.WorldChart = function ( schema ) {
 
 
 THREEGRAPHS.WorldChart.prototype = {
-  
+
   canvas: null,
   browserRender: 'webgl',
   domContainer: null,
@@ -2420,26 +2411,26 @@ THREEGRAPHS.WorldChart.prototype = {
     "Zambia": {"lat": -15.00, "lng": 30.00},
     "Zimbabwe": {"lat": -20.00, "lng": 30.00}
   },
-  
+
   initSceneVars : function () { // Initiates the main scene variable
-    
+
     // crates utils instance in order to use the functions
     var utils =  new THREEGRAPHS.Utils();
-    
+
     // Inits deviation position of the ground from the center
     THREEGRAPHS.Settings.yDeviation = -(THREEGRAPHS.Settings.valHeight/2);
     THREEGRAPHS.Settings.zDeviation = -(this.schema.cols.length*
                                         THREEGRAPHS.Settings.squareStep/2);
     THREEGRAPHS.Settings.xDeviation = -(this.schema.rows.length*
                                         THREEGRAPHS.Settings.squareStep/2);
-    
-    // Removes previous canvas if exists    
+
+    // Removes previous canvas if exists
     var exCanEl = document.getElementsByTagName("canvas");
     for (var i = exCanEl.length - 1; i >= 0; i--) {
         exCanEl[i].parentNode.removeChild(exCanEl[i]);
     }
-    
-    
+
+
     // Getting the projector for picking objects
     this.projector = new THREE.Projector();
 
@@ -2447,34 +2438,34 @@ THREEGRAPHS.WorldChart.prototype = {
     this.scene = new THREE.Scene();
 
     // Setting the camera
-    this.camera = new THREE.PerspectiveCamera( 60, 
+    this.camera = new THREE.PerspectiveCamera( 60,
                                           window.innerWidth/window.innerHeight,
-                                          1, 
+                                          1,
                                           5000 );
     this.camera.position.x = this.camPos.x;
     this.camera.position.y = this.camPos.y;
     this.camera.position.z = this.camPos.z;
-    
+
   },
-  
+
   initWebGLScene: function (){
-    
+
     // initial setup
     // crates utils instance in order to use the functions
     var utils =  new THREEGRAPHS.Utils();
-    
+
     // Converts numeric degrees to radians
     if (typeof(Number.prototype.toRad) === "undefined") {
       Number.prototype.toRad = function() {
         return this * Math.PI / 180;
       }
     }
-    
+
     // Setting the renderer (with shadows)
     if ( !this.canvas ) {
       this.renderer = new THREE.WebGLRenderer( { antialias: true } );
     }else{
-      this.renderer = new THREE.WebGLRenderer( { antialias: true, 
+      this.renderer = new THREE.WebGLRenderer( { antialias: true,
                                                  canvas: this.canvas } );
     }
     this.renderer.setSize( window.innerWidth, window.innerHeight );
@@ -2484,16 +2475,16 @@ THREEGRAPHS.WorldChart.prototype = {
       this.renderer.shadowMapEnabled = true;
       this.renderer.shadowMapSoft = true;
     }
-    
+
     if ( !this.domContainer ) {
       this.domContainer = document.createElement( 'div' );
       document.body.appendChild( this.domContainer );
     } else {
       this.domContainer = document.getElementById ( this.domContainer );
     }
-    
+
     this.domContainer.appendChild( this.renderer.domElement );
-    
+
     // Creating the supernova
 
     // Create particle for glow
@@ -2511,28 +2502,28 @@ THREEGRAPHS.WorldChart.prototype = {
                                                 gpMaterial);
     particleGlow.sortParticles = true;
     this.scene.add(particleGlow);
-    
-    
+
+
     //Adding the globe
-    
+
     // setting up the defuse map
-    var matDif = THREE.ImageUtils.loadTexture( 
+    var matDif = THREE.ImageUtils.loadTexture(
                       THREEGRAPHS.Settings.staticUrl+"/world_diffuse.jpg");
-    
+
     // setting up the bump map
-    var mapBump = THREE.ImageUtils.loadTexture( 
+    var mapBump = THREE.ImageUtils.loadTexture(
                         THREEGRAPHS.Settings.staticUrl+"/world_bump.jpg" );
     mapBump.anisotropy = 1;
     mapBump.repeat.set( 1, 1 );
     mapBump.offset.set( 0, 0 )
     mapBump.wrapS = mapBump.wrapT = THREE.RepeatWrapping;
     mapBump.format = THREE.RGBFormat;
-    
+
     // setting up the material
     var sphereMaterial = new THREE.MeshPhongMaterial({
       ambient : 0x444444,
       color : 0x777777,
-      shininess : 40, 
+      shininess : 40,
       specular : 0x222222,
       shading : THREE.SmoothShading,
       side: THREE.DoubleSide,
@@ -2540,7 +2531,7 @@ THREEGRAPHS.WorldChart.prototype = {
       bumpMap:mapBump,
       bumpScale: 10
     });
-    
+
     // creaing the mesh
     this.globe = new THREE.Mesh(new THREE.SphereGeometry( this.globeRadius,
                                                           32,
@@ -2548,26 +2539,26 @@ THREEGRAPHS.WorldChart.prototype = {
                                 sphereMaterial);
     this.globe.receiveShadow = true;
     // add the globe to the scene
-    this.scene.add( this.globe ); 
-    
+    this.scene.add( this.globe );
+
     // Calcluate scales
-    this.niceScale = new THREEGRAPHS.NiceScale ( 
+    this.niceScale = new THREEGRAPHS.NiceScale (
       utils.getMinArr ( [this.dataValues] ),
-      utils.getMaxArr ( [this.dataValues] ) 
+      utils.getMaxArr ( [this.dataValues] )
     );
     this.niceScale.calculate ();
-    
-    // Creating the bars and attaching them to the globe 
+
+    // Creating the bars and attaching them to the globe
     for ( var i=0; i<this.schema.cols.length; i++ ) {
       if( this.dataValues[i] > 0 ) {
         // crating the bar object
-        this.bars.push( new THREEGRAPHS.BarCube( 
-                            this.schema.cols[i].color, 
-                            0, 
+        this.bars.push( new THREEGRAPHS.BarCube(
+                            this.schema.cols[i].color,
+                            0,
                             i,
-                            this.dataValues[i], 
+                            this.dataValues[i],
                             THREEGRAPHS.Settings.valTextColor,
-                            'full', 
+                            'full',
                             document.getElementById( THREEGRAPHS.Settings.labelId ),
                             { row: this.schema.rows[0].name,
                               col: this.schema.cols[i].name },
@@ -2580,12 +2571,12 @@ THREEGRAPHS.WorldChart.prototype = {
         // getting the country from the country list
         var c = this.country[this.schema.cols[i].name];
         // add dummy object along wich we can rotate the bar for the longitute
-        this.bars[this.bars.length-1].dummyLng = new THREE.Mesh( 
+        this.bars[this.bars.length-1].dummyLng = new THREE.Mesh(
           new THREE.PlaneGeometry( 1, 1, 0, 0 ),
           new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
         this.globe.add(this.bars[this.bars.length-1].dummyLng);
         // add dummy object along wich we can rotate the bar for the latitude
-        this.bars[this.bars.length-1].dummyLat = new THREE.Mesh( 
+        this.bars[this.bars.length-1].dummyLat = new THREE.Mesh(
           new THREE.PlaneGeometry( 1, 1, 0, 0 ),
           new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
         this.bars[this.bars.length-1].dummyLng.add(
@@ -2596,38 +2587,38 @@ THREEGRAPHS.WorldChart.prototype = {
         this.bars[this.bars.length-1].reposition(
           0, this.globeRadius+this.bars[this.bars.length-1].h/2, 0);
         // rotating the dummy object so that it snaps to the correct country
-        this.bars[this.bars.length-1].dummyLng.rotation.y = 
+        this.bars[this.bars.length-1].dummyLng.rotation.y =
           Math.PI + (c.lng).toRad();
-        this.bars[this.bars.length-1].dummyLat.rotation.x = 
+        this.bars[this.bars.length-1].dummyLat.rotation.x =
           Math.PI/2 - (c.lat).toRad();
         // adding the bar to the intersection objects
-        this.intersobj[this.bars.length-1] = 
+        this.intersobj[this.bars.length-1] =
           this.bars[this.bars.length-1].barobj;
         this.intersobj[this.bars.length-1].elemId = this.bars.length-1;
       }
     }
-    
+
     // focus the globe on a certain country
     var cfoc = this.country[this.countryFocus];
     this.globe.rotation.set(cfoc.lat.toRad(), Math.PI - cfoc.lng.toRad(), 0);
-    
+
     // Adding the lights
     var light = new THREE.DirectionalLight( 0x999999 );
     light.position.set( -1, 0, 1 ).normalize();
     this.scene.add( light );
-    
+
     var light = new THREE.DirectionalLight( 0x999999 );
     light.position.set( 0, 1, -1 ).normalize();
     this.scene.add( light );
-    
+
     var light = new THREE.DirectionalLight( 0x999999 );
     light.position.set( 1, 0, -1 ).normalize();
     this.scene.add( light );
-    
+
     this.spotLight = new THREE.SpotLight( 0xFFFFFF, 2 );
     this.spotLight.position.set( this.camPos.x, this.camPos.y, this.camPos.z );
     this.spotLight.target.position.set( 0, 0, 0 );
-    
+
     this.spotLight.shadowCameraNear = 1;
     this.spotLight.shadowCameraFar = 3000;
     this.spotLight.shadowCameraFov = 100;
@@ -2636,29 +2627,29 @@ THREEGRAPHS.WorldChart.prototype = {
     this.spotLight.shadowBias = 0.001;
     // spotLight.shadowCameraVisible  = true;
     this.scene.add( this.spotLight );
-    
+
   },
-  
+
   initCanvasScene: function () {
-    
+
     // initial setup
     // crates utils instance in order to use the functions
     var utils =  new THREEGRAPHS.Utils();
-    
+
     // Converts numeric degrees to radians
     if (typeof(Number.prototype.toRad) === "undefined") {
       Number.prototype.toRad = function() {
         return this * Math.PI / 180;
       }
     }
-    
+
     // Setting the Canvas renderer
     if ( !this.canvas ) {
       this.renderer = new THREE.CanvasRenderer(  );
     }else{
       this.renderer = new THREE.CanvasRenderer( { canvas: this.canvas } );
     }
-    
+
     this.renderer.setSize( window.innerWidth, window.innerHeight );
 
     if ( !this.domContainer ) {
@@ -2669,36 +2660,36 @@ THREEGRAPHS.WorldChart.prototype = {
     }
 
     this.domContainer.appendChild( this.renderer.domElement );
-    
+
     // MAterials
     var mapText = THREE.ImageUtils.loadTexture( THREEGRAPHS.Settings.staticUrl
                                         +"/world_mapplain2.jpg");
     var material = new THREE.MeshBasicMaterial( { map: mapText, overdraw: true } );
-    
+
     // Calcluate scales
-    this.niceScale = new THREEGRAPHS.NiceScale ( 
+    this.niceScale = new THREEGRAPHS.NiceScale (
       utils.getMinArr ( [this.dataValues] ),
-      utils.getMaxArr ( [this.dataValues] ) 
+      utils.getMaxArr ( [this.dataValues] )
     );
     this.niceScale.calculate ();
-    
+
     // the globe
     this.globe = new THREE.Mesh(new THREE.SphereGeometry( this.globeRadius,
                                                           16,
                                                           16),
                                                         material);
     this.scene.add( this.globe );
-    
+
     for ( var i=0; i<this.schema.cols.length; i++ ) {
       if( this.dataValues[i] > 0 ) {
         // crating the bar object
-        this.bars.push( new THREEGRAPHS.BarCube( 
-                            this.schema.cols[i].color, 
-                            0, 
+        this.bars.push( new THREEGRAPHS.BarCube(
+                            this.schema.cols[i].color,
+                            0,
                             i,
-                            this.dataValues[i], 
+                            this.dataValues[i],
                             THREEGRAPHS.Settings.valTextColor,
-                            'light', 
+                            'light',
                             document.getElementById( THREEGRAPHS.Settings.labelId ),
                             { row: this.schema.rows[0].name,
                               col: this.schema.cols[i].name },
@@ -2711,12 +2702,12 @@ THREEGRAPHS.WorldChart.prototype = {
         // getting the country from the country list
         var c = this.country[this.schema.cols[i].name];
         // add dummy object along wich we can rotate the bar for the longitute
-        this.bars[this.bars.length-1].dummyLng = new THREE.Mesh( 
+        this.bars[this.bars.length-1].dummyLng = new THREE.Mesh(
           new THREE.PlaneGeometry( 1, 1, 0, 0 ),
           new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
         this.globe.add(this.bars[this.bars.length-1].dummyLng);
         // add dummy object along wich we can rotate the bar for the latitude
-        this.bars[this.bars.length-1].dummyLat = new THREE.Mesh( 
+        this.bars[this.bars.length-1].dummyLat = new THREE.Mesh(
           new THREE.PlaneGeometry( 1, 1, 0, 0 ),
           new THREE.MeshLambertMaterial({ color: 0xCCCCCC }));
         this.bars[this.bars.length-1].dummyLng.add(
@@ -2727,22 +2718,22 @@ THREEGRAPHS.WorldChart.prototype = {
         this.bars[this.bars.length-1].reposition(
           0, this.globeRadius+this.bars[this.bars.length-1].h/2, 0);
         // rotating the dummy object so that it snaps to the correct country
-        this.bars[this.bars.length-1].dummyLng.rotation.y = 
+        this.bars[this.bars.length-1].dummyLng.rotation.y =
           Math.PI + (c.lng).toRad();
-        this.bars[this.bars.length-1].dummyLat.rotation.x = 
+        this.bars[this.bars.length-1].dummyLat.rotation.x =
           Math.PI/2 - (c.lat).toRad();
         // adding the bar to the intersection objects
-        this.intersobj[this.bars.length-1] = 
+        this.intersobj[this.bars.length-1] =
           this.bars[this.bars.length-1].barobj;
         this.intersobj[this.bars.length-1].elemId = this.bars.length-1;
       }
     }
-    
+
     // focus the globe on a certain country
     var cfoc = this.country[this.countryFocus];
     this.globe.rotation.set(cfoc.lat.toRad(), Math.PI - cfoc.lng.toRad(), 0);
 
-    // Adding the lights 
+    // Adding the lights
     var ambientLight = new THREE.AmbientLight( 0xffffff );
     this.scene.add( ambientLight );
 
@@ -2760,13 +2751,13 @@ THREEGRAPHS.WorldChart.prototype = {
     directionalLight.position.normalize();
     this.scene.add( directionalLight );
     //******************************
-    
+
   },
-  
+
   init: function() { //scene initialization
-    
+
     var utils = new THREEGRAPHS.Utils( );
-    
+
     // Detecting the renderer:
     this.browserRender = utils.detectRenderer ( );
 
@@ -2782,10 +2773,10 @@ THREEGRAPHS.WorldChart.prototype = {
     else {
       utils.nonSupportedBrowsers();
     }
-    
+
     this.controls = utils.mouseControls ( this.renderer, this.camera , 1200, 2800 );
     THREEGRAPHS.animate ( this, 'world' );
-    
+
   }
-  
+
 };
