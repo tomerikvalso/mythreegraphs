@@ -37,8 +37,8 @@
       <file leaf-file-name="ThreeGraphs.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ThreeGraphs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="1053" column="76" selection-start-line="1053" selection-start-column="76" selection-end-line="1053" selection-end-column="76" />
+            <state relative-caret-position="249">
+              <caret line="1071" column="0" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -662,7 +662,14 @@
       <option name="project" value="LOCAL" />
       <updated>1483302240837</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="works t2">
+      <created>1483353255695</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1483353255695</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -994,8 +1001,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ThreeGraphs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="1053" column="76" selection-start-line="1053" selection-start-column="76" selection-end-line="1053" selection-end-column="76" />
+        <state relative-caret-position="249">
+          <caret line="1071" column="0" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
           <folding />
         </state>
       </provider>

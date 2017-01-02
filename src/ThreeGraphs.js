@@ -966,9 +966,15 @@ if(csvtype == 'type1') {
 antallkolonnerimatrise =  columnsfromline.length - 1;
 } else if (csvtype = 'type2') {
 antallkolonnerimatrise = columnsfromline.length ;
+} else {
+ //type
+antallkolonnerimatrise = columnsfromline.length ;
 }
 
 console.log('er ' + csvtype);
+
+
+
 
 var schema = {
 cols:
@@ -979,13 +985,16 @@ new Array (rowsarray.length  - 1)
 
 var colors = ["123456", "654321", "981256"];
 var colorcounter = 0
+
+
+//for ( p = 0 ; p <antallkolonnerimatrise ; p ++ ){
+//         schema.cols[p].name= 'column ' +  p;
+//}
+
 for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  antallkolonnerimatrise ; columncounter ++  ) {
          schema.cols[columncounter] =  { name:"col50", color:colors[colorcounter] };
          schema.rows[linecounter] =  { name: "row x", values: new Array (columnsfromline.length - 1) };
-
-
-
  }
 
   if (colorcounter == 2 ) {
@@ -1067,6 +1076,33 @@ console.log ("linecounter is " + linecounter)
     }
     // type3
     else {
+     console.log ( 'type3')
+     // INIT COLUMNS NAMES
+
+        for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
+                console.log('found  value ' +columnsfromline[columncounter] );
+                 // do nothing as this field is not in use
+
+                // linecounter = 0 means columnsnames
+                  if (linecounter == 0  ) {
+
+                      schema.cols[columncounter].name= 'kolonne'
+                   }
+                     else if ( linecounter > 0    ) {
+                                schema.rows[linecounter-1].name = 'row ' +      linecounter;
+                                if (typeof columnsfromline[columncounter] != 'undefined')
+                                                 //schema.rows[linecounter-1].values[columncounter-1]
+                                                  schema.rows[linecounter-1].values[columncounter] = parseInt(columnsfromline[columncounter]);
+
+                                }
+                    else {
+                     //datavalues
+                    alert('crap');
+
+                    }
+            } // end for loop inner
+
+
     }
 
 
