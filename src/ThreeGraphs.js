@@ -1051,7 +1051,7 @@ console.log ("linecounter is " + linecounter)
                   schema.cols[columncounter].name=columnsfromline[columncounter];
                }
                  else if ( linecounter > 0    ) {
-                            schema.rows[linecounter-1].name = 'daejaa!';
+                            schema.rows[linecounter-1].name = 'row ' +      linecounter;
                             if (typeof columnsfromline[columncounter] != 'undefined')
                                              //schema.rows[linecounter-1].values[columncounter-1]
                                               schema.rows[linecounter-1].values[columncounter] = parseInt(columnsfromline[columncounter]);
