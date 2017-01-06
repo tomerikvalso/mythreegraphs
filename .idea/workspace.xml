@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c35bab43-5a1b-4b0c-ba14-53b0407779e9" name="Default" comment="">
+    <list default="true" id="c35bab43-5a1b-4b0c-ba14-53b0407779e9" name="Default" comment="virker ikke t3">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demos/barchart.html" afterPath="$PROJECT_DIR$/demos/barchart.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ThreeGraphs.js" afterPath="$PROJECT_DIR$/src/ThreeGraphs.js" />
     </list>
     <ignored path="mythreegraphs.iws" />
@@ -27,8 +28,8 @@
       <file leaf-file-name="barchart.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demos/barchart.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="73" column="34" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="34" />
+            <state relative-caret-position="52">
+              <caret line="67" column="34" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -37,8 +38,8 @@
       <file leaf-file-name="ThreeGraphs.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ThreeGraphs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="1071" column="0" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
+            <state relative-caret-position="60">
+              <caret line="1088" column="81" selection-start-line="1088" selection-start-column="81" selection-end-line="1088" selection-end-column="81" />
               <folding />
             </state>
           </provider>
@@ -230,8 +231,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -669,7 +670,14 @@
       <option name="project" value="LOCAL" />
       <updated>1483353255695</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="virker ikke t3">
+      <created>1483391861775</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1483391861775</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -688,7 +696,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18155198" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6230284" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6230284" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -729,7 +737,8 @@
     <MESSAGE value="div" />
     <MESSAGE value="works again for type 1" />
     <MESSAGE value="works t2" />
-    <option name="LAST_COMMIT_MESSAGE" value="works t2" />
+    <MESSAGE value="virker ikke t3" />
+    <option name="LAST_COMMIT_MESSAGE" value="virker ikke t3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -975,14 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demos/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demos/text.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -991,18 +992,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/demos/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/demos/barchart.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="73" column="34" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="34" />
+        <state relative-caret-position="52">
+          <caret line="67" column="34" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ThreeGraphs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="1071" column="0" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="1088" column="81" selection-start-line="1088" selection-start-column="81" selection-end-line="1088" selection-end-column="81" />
           <folding />
         </state>
       </provider>

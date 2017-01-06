@@ -964,7 +964,7 @@ var antallkolonnerimatrise = 0;
 
 if(csvtype == 'type1') {
 antallkolonnerimatrise =  columnsfromline.length - 1;
-} else if (csvtype = 'type2') {
+} else if (csvtype == 'type2') {
 antallkolonnerimatrise = columnsfromline.length ;
 } else {
  //type
@@ -1076,7 +1076,7 @@ console.log ("linecounter is " + linecounter)
     }
     // type3
     else {
-     console.log ( 'type3')
+     console.log ( 'type3 linecounter er ' + linecounter)
      // INIT COLUMNS NAMES
 
         for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
@@ -1085,8 +1085,8 @@ console.log ("linecounter is " + linecounter)
 
                 // linecounter = 0 means columnsnames
                   if (linecounter == 0  ) {
-
-                      schema.cols[columncounter].name= 'kolonne'
+console.log ( '  skjer dette ')
+                      schema.cols[columncounter].name= 'kolonne ' + columncounter
                    }
                      else if ( linecounter > 0    ) {
                                 schema.rows[linecounter-1].name = 'row ' +      linecounter;
