@@ -32,15 +32,16 @@
     <script type="text/javascript">
     </script>
 </head>
-<body>
-
-<form>
+<body bgcolor="#0A122A">
+<font color="#E0E6F8">
+    <div align="right"> <a href="barchart.html"><font size="+2" color="#F3F781">upload new file</a></div>
+<br><br><font size="+1" color="#E0E6F8">
+    <form>
     <input type="radio" name="bartype" onchange="hei();"  value="type1" checked> Top Row and Column1 for names<br>
     <input type="radio" name="bartype" onchange="hei2();" value="type2"> Top Row only<br>
     <input type="radio" name="bartype" onchange="hei3();" value="type3"> Use only row and col no
 </form>
-
-<h1>Text File Reader</h1>
+<br>
 <div>
     Select a text file:
     <input type="file" id="fileInput">
@@ -48,7 +49,6 @@
 
 <script>
     function hei() {
-            alert( 'hei1');
         var input = 22;
         var i2 = input; // er denne bare tilgjengelig et post og get? document.getElementById("input");
         window.yourGlobalVariable = 'type1';

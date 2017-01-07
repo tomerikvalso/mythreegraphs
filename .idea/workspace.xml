@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c35bab43-5a1b-4b0c-ba14-53b0407779e9" name="Default" comment="virker ikke t3">
+    <list default="true" id="c35bab43-5a1b-4b0c-ba14-53b0407779e9" name="Default" comment="virker t3">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demos/barchart.html" afterPath="$PROJECT_DIR$/demos/barchart.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ThreeGraphs.js" afterPath="$PROJECT_DIR$/src/ThreeGraphs.js" />
@@ -25,21 +25,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="barchart.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="barchart.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/demos/barchart.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="67" column="34" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="34" />
+            <state relative-caret-position="27">
+              <caret line="43" column="4" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ThreeGraphs.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ThreeGraphs.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ThreeGraphs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="1088" column="81" selection-start-line="1088" selection-start-column="81" selection-end-line="1088" selection-end-column="81" />
+            <state relative-caret-position="89">
+              <caret line="1088" column="84" selection-start-line="1088" selection-start-column="84" selection-end-line="1088" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -112,8 +112,8 @@
         <option value="$PROJECT_DIR$/demos/areachart.html" />
         <option value="$PROJECT_DIR$/demos/text.js" />
         <option value="$PROJECT_DIR$/src/threegraphs.js" />
-        <option value="$PROJECT_DIR$/demos/barchart.html" />
         <option value="$PROJECT_DIR$/src/ThreeGraphs.js" />
+        <option value="$PROJECT_DIR$/demos/barchart.html" />
       </list>
     </option>
   </component>
@@ -677,7 +677,14 @@
       <option name="project" value="LOCAL" />
       <updated>1483391861775</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="virker t3">
+      <created>1483731852232</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1483731852232</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -738,7 +745,8 @@
     <MESSAGE value="works again for type 1" />
     <MESSAGE value="works t2" />
     <MESSAGE value="virker ikke t3" />
-    <option name="LAST_COMMIT_MESSAGE" value="virker ikke t3" />
+    <MESSAGE value="virker t3" />
+    <option name="LAST_COMMIT_MESSAGE" value="virker t3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1000,18 +1008,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demos/barchart.html">
+    <entry file="file://$PROJECT_DIR$/src/ThreeGraphs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="67" column="34" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="34" />
+        <state relative-caret-position="89">
+          <caret line="1088" column="84" selection-start-line="1088" selection-start-column="84" selection-end-line="1088" selection-end-column="84" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ThreeGraphs.js">
+    <entry file="file://$PROJECT_DIR$/demos/barchart.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="1088" column="81" selection-start-line="1088" selection-start-column="81" selection-end-line="1088" selection-end-column="81" />
+        <state relative-caret-position="27">
+          <caret line="43" column="4" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
           <folding />
         </state>
       </provider>
