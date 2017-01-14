@@ -23,25 +23,26 @@
       border: 1px solid #fff;
     }
   </style>
-
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="../lib/three.min.js"></script>
     <script type="text/javascript" src="../lib/TrackballControls.js"></script>
     <script type="text/javascript" src="../lib/TrackballControlsTouch.js"></script>
     <script type="text/javascript" src="../src/ThreeGraphs.js"></script>
     <script type="text/javascript" src="../fonts/helvetiker_bold.typeface.js"></script>
-    <script type="text/javascript">
-    </script>
+
 </head>
 <body bgcolor="#0A122A">
+<div id="wrapper">
+</div>
+
 <font color="#E0E6F8">
     <div align="right"> <a href="barchart.html"><font size="+2" color="#F3F781">New graph</a></div>
-<br><br><font size="+1" color="#E0E6F8">
+   <font size="+1" color="#E0E6F8">
     <form>
     <input type="radio" name="bartype" onchange="hei();"  value="type1" checked> Top Row and Column1 for names (type1)<br>
     <input type="radio" name="bartype" onchange="hei2();" value="type2"> Top Row only(type2)<br>
     <input type="radio" name="bartype" onchange="hei3();" value="type3"> Use only row and col no(type3)
 </form>
-<br>
 <div>
     Select a text file:
     <input type="file" id="fileInput">
@@ -64,25 +65,16 @@
     }
 
     function hei3() {
-
          window.yourGlobalVariable = 'type3';
     }
-
-
-
-
 window.yourGlobalVariable = 'type1';
 
 </script>
 
 <script src="text.js"></script>
 <!--  -->
-
 <div id="threegraphs-valuelable">
     sss
 </div>
-
-
 </body>
-
 </html>

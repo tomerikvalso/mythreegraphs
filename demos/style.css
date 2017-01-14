@@ -1,18 +1,8 @@
-html {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 100%;
-  background: #333;
-}
- 
-
-h1 {
-	margin-top: 0;
-}
-
-img {
-  max-width: 100%;
+#wrapper {
+     width: 200px;
+     margin: 0 auto;
+    position: relative;
 }
 
 #fileDisplayArea {
-
 }
