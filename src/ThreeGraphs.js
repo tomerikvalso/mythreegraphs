@@ -955,19 +955,15 @@ THREEGRAPHS.BarChart = function ( schemafromfile ) {
 
 
 var myref = document.URL;
-alert ( myref);
 if (myref.includes("sample")) {
-alert ( 'fromsample');
 schemafromfile = "a,b,c\n1,2,3\n1,2,3";
 } else {
-alert ( 'fromnormal');
 
 }
 
 var csvtype = window.yourGlobalVariable;
 
 var rowsarray = schemafromfile.split("\n");
-alert ( rowsarray.length);
 var columnsfromline = rowsarray[0].split(",");
 
 var antallkolonnerimatrise = 0;
@@ -1133,12 +1129,6 @@ console.log ( '  skjer dette ')
     }
   }
 
-if (myref.includes("sample")) {
-alert ( 'fromsample');
-} else {
-alert ( 'fromnormal');
-
-}
 
 
 };
