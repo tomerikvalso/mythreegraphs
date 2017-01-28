@@ -953,21 +953,13 @@ THREEGRAPHS.animate = function ( obj, type ){
 
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
 
-
-var myref = document.URL;
-if (myref.includes("sample")) {
-schemafromfile = "a,b,c\n1,2,3\n1,2,3";
-} else {
-
-}
-
 var csvtype = window.yourGlobalVariable;
 
 var rowsarray = schemafromfile.split("\n");
+
 var columnsfromline = rowsarray[0].split(",");
 
 var antallkolonnerimatrise = 0;
-
 
 
 if(csvtype == 'type1') {
@@ -1129,10 +1121,7 @@ console.log ( '  skjer dette ')
     }
   }
 
-
-
 };
-
 
 THREEGRAPHS.BarChart.prototype = {
 
