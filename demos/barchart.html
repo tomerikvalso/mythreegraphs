@@ -43,6 +43,12 @@
     <input type="radio" name="bartype" onchange="hei2();" value="type2">Use top row on z axis<br>
     <input type="radio" name="bartype" onchange="hei3();" value="type3"> Use rownumber and columnumber on x and z axis
 </form>
+       <br>
+       <form>
+           <input type="radio" name="bartype" onchange="setCommaSeparated();"  value="comma" checked>Dataset is comma separated<br>
+           <input type="radio" name="bartype" onchange="setSemicolonSeparated();" value="semicolon">Dataset is semicolon separated<br>
+       </form>
+
     Select a text file:
     <input type="file" id="fileInput">
 </div>
@@ -67,8 +73,15 @@
     function hei3() {
          window.yourGlobalVariable = 'type3';
     }
-window.yourGlobalVariable = 'type1';
 
+    function setCommaSeparated() {
+         window.yourSeparatorVariable = ',';
+    }
+    function setSemicolonSeparated() {
+         window.yourSeparatorVariable = ';';
+    }
+window.yourGlobalVariable = 'type1';
+window.yourSeparatorVariable = ';';
 </script>
 
 <script src="text.js"></script>

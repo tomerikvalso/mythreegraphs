@@ -957,7 +957,9 @@ var csvtype = window.yourGlobalVariable;
 
 var rowsarray = schemafromfile.split("\n");
 
-var columnsfromline = rowsarray[0].split(",");
+
+var separator = window.yourSeparatorVariable ;
+var columnsfromline = rowsarray[0].split(separator);
 
 var antallkolonnerimatrise = 0;
 
@@ -1012,7 +1014,7 @@ for   (  linecounter = 0 ; linecounter <  rowsarray.length  ; linecounter ++  ) 
 console.log ("linecounter is " + linecounter)
  //coloumn names
     console.log('found line ' +rowsarray[linecounter] );
-    var columnsfromline = rowsarray[linecounter].split(",");
+    var columnsfromline = rowsarray[linecounter].split(separator);
     // wash columnsfromline
     for ( var k = 0 ; k < antallkolonnerimatrise ; k++ ) {
            columnsfromline[k] = columnsfromline[k].replace('""','0')
