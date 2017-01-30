@@ -1088,7 +1088,7 @@ console.log ("linecounter is " + linecounter)
                 // linecounter = 0 means columnsnames
                   if (linecounter == 0  ) {
 console.log ( '  skjer dette ')
-                      schema.cols[columncounter].name= 'column ' + columncounter + 1
+                      schema.cols[columncounter].name= 'column ' + (columncounter + 1)
                    }
                      else if ( linecounter > 0    ) {
                                 schema.rows[linecounter-1].name = 'row ' +      linecounter;
