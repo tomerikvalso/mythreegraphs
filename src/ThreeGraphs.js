@@ -109,8 +109,8 @@ THREEGRAPHS.Utils.prototype.getMinArr = function ( arr ){
   for( var i=0; i<arr.length; i++ ){
     for ( var j=0; j<arr[i].length; j++ ){
       if( parseInt(arr[i][j]) < minVal) minVal = arr[i][j];
-       console.log ( 'check   i max' ||  (arr[i][j]));
-            console.log ( 'kept   ' || minVal);
+       //console.log ( 'check   i max' ||  (arr[i][j]));
+          //  console.log ( 'kept   ' || minVal);
     }
   }
 
@@ -952,6 +952,7 @@ THREEGRAPHS.animate = function ( obj, type ){
  */
 
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
+var prefix = '';
 
 var csvtype = window.yourGlobalVariable;
 
@@ -964,9 +965,9 @@ var columnsfromline = rowsarray[0].split(separator);
 var antallkolonnerimatrise = 0;
 
 
-if(csvtype == 'type1') {
+if(csvtype == 'type4') {
 antallkolonnerimatrise =  columnsfromline.length - 1;
-} else if (csvtype == 'type2') {
+} else if (csvtype == 'type2' || csvtype == 'type1') {
 antallkolonnerimatrise = columnsfromline.length ;
 } else {
  //type
@@ -1027,14 +1028,15 @@ console.log ("linecounter is " + linecounter)
         }
     }
 
-    if (csvtype == 'type1') {
+    if (csvtype == 'type4') {
         for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
                 console.log('found  value ' +columnsfromline[columncounter] );
                  // do nothing as this field is not in use
-                 if (linecounter == 0 && columncounter==0 ){
-                 }
+                // if (linecounter == 0 && columncounter==0 ){
+                 //}
                 // linecounter = 0 means columnsnames
-                  else if (linecounter == 0 && columncounter>0 ) {
+                  //else
+                   if (linecounter == 0 && columncounter>0 ) {
 
                      schema.cols[columncounter-1].name=columnsfromline[columncounter];
                    } else if ( linecounter > 0 && columncounter == 0 ) {
@@ -1050,8 +1052,9 @@ console.log ("linecounter is " + linecounter)
                       schema.rows[linecounter-1].values[columncounter-1] = parseInt(columnsfromline[columncounter]);
                     }
             } // end for loop inner
-    } else if ( csvtype == 'type2')    {
-    console.log ( 'type2')
+    } else if ( csvtype == 'type2' || csvtype == 'type1' )    {
+    console.log ( 'type2 or type1')
+
     for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
             console.log('found  value ' +columnsfromline[columncounter] );
              // do nothing as this field is not in use
@@ -1060,9 +1063,17 @@ console.log ("linecounter is " + linecounter)
               if (linecounter == 0  ) {
 
                   schema.cols[columncounter].name=columnsfromline[columncounter];
+                  if (columncounter==0){
+                   
+                  prefix = columnsfromline[columncounter];
+                  }
                }
                  else if ( linecounter > 0    ) {
-                            schema.rows[linecounter-1].name = 'row ' +      linecounter;
+                            if (columncounter == 0) {
+
+                            schema.rows[linecounter-1].name = prefix + ' ' +      columnsfromline[columncounter];
+                            }
+
                             if (typeof columnsfromline[columncounter] != 'undefined')
                                              //schema.rows[linecounter-1].values[columncounter-1]
                                               schema.rows[linecounter-1].values[columncounter] = parseInt(columnsfromline[columncounter]);
@@ -1119,7 +1130,7 @@ console.log ( '  skjer dette ')
     //  console.log ( ' i og j ' + i + ' ' + j );
     //  console.log ( ' insert value ' + schema.rows[i].values[j] );
       this.dataValues[i][schema.cols.length-j-1] = parseInt(schema.rows[i].values[j]);
-      console.log ( ' after insert value *' +  this.dataValues[i][schema.cols.length-j-1] + '*' );
+    //  console.log ( ' after insert value *' +  this.dataValues[i][schema.cols.length-j-1] + '*' );
     }
   }
 
