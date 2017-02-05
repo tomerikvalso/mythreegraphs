@@ -1017,9 +1017,13 @@ console.log ("linecounter is " + linecounter)
     console.log('found line ' +rowsarray[linecounter] );
     var columnsfromline = rowsarray[linecounter].split(separator);
     // wash columnsfromline
-    for ( var k = 0 ; k < antallkolonnerimatrise ; k++ ) {
+    for ( var k = 0 ; k <= antallkolonnerimatrise ; k++ ) {
+
+        console.log('pre '   + columnsfromline[k] )
            columnsfromline[k] = columnsfromline[k].replace('""','0')
-            columnsfromline[k] = columnsfromline[k].replace('"','')
+
+            columnsfromline[k] = columnsfromline[k].split('"').join('');
+            console.log ('post ' +  columnsfromline[k]   )
      }
 
     for ( var k = 0 ; k < columnsfromline.length ; k++ ) {
