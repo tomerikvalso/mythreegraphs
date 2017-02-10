@@ -994,7 +994,15 @@ var colorcounter = 0
 //         schema.cols[p].name= 'column ' +  p;
 //}
 
-for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++  ) {
+var rowsinuse = 0;
+if ( csvtype == 'type1' || csvtype == 'type2'){
+rowsinuse =  rowsarray.length - 1
+} else {
+rowsinuse = rowsarray.length;
+}
+
+
+for   (  linecounter = 0 ; linecounter <  rowsinuse  ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  antallkolonnerimatrise ; columncounter ++  ) {
          schema.cols[columncounter] =  { name:"col50", color:colors[colorcounter] };
          schema.rows[linecounter] =  { name: "row x", values: new Array (columnsfromline.length - 1) };
@@ -1010,8 +1018,7 @@ for   (  linecounter = 0 ; linecounter <  rowsarray.length - 1 ; linecounter ++ 
 
 
 
-
-for   (  linecounter = 0 ; linecounter <  rowsarray.length  ; linecounter ++  ) {
+for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 console.log ("linecounter is " + linecounter)
  //coloumn names
     console.log('found line ' +rowsarray[linecounter] );
@@ -1086,7 +1093,7 @@ console.log ("linecounter is " + linecounter)
                  else if ( linecounter > 0    ) {
                             if (columncounter == 0) {
 
-                            schema.rows[linecounter-1].name = prefix + ' ' +      columnsfromline[columncounter];
+                            schema.rows[linecounter-1].name = 'row  ' +   (linecounter   );
                             }
 
                             if (typeof columnsfromline[columncounter] != 'undefined')
@@ -1112,22 +1119,23 @@ console.log ("linecounter is " + linecounter)
                  // do nothing as this field is not in use
 
                 // linecounter = 0 means columnsnames
-                  if (linecounter == 0  ) {
-console.log ( '  skjer dette ')
-                      schema.cols[columncounter].name= 'column ' + (columncounter + 1)
-                   }
-                     else if ( linecounter > 0    ) {
-                                schema.rows[linecounter-1].name = 'row ' +      linecounter;
+               //   if (linecounter == 0  ) {
+//console.log ( '  skjer dette ')
+                 //     schema.cols[columncounter].name= 'column ' + (columncounter + 1)
+              //     }
+                //     else if ( linecounter > 0    ) {
+                console.log('linecounter her' + linecounter)
+                                schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
                                 if (typeof columnsfromline[columncounter] != 'undefined')
                                                  //schema.rows[linecounter-1].values[columncounter-1]
-                                                  schema.rows[linecounter-1].values[columncounter] = parseInt(columnsfromline[columncounter]);
+                                                  schema.rows[linecounter].values[columncounter] = parseInt(columnsfromline[columncounter]);
 
-                                }
-                    else {
+                             //   }
+                //    else {
                      //datavalues
-                    alert('crap');
+                 //   alert('crap');
 
-                    }
+                //    }
             } // end for loop inner
 
 
