@@ -1004,7 +1004,7 @@ rowsinuse = rowsarray.length;
 
 for   (  linecounter = 0 ; linecounter <  rowsinuse  ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  antallkolonnerimatrise ; columncounter ++  ) {
-         schema.cols[columncounter] =  { name:"col50", color:colors[colorcounter] };
+         schema.cols[columncounter] =  { name:"col" + (columncounter + 1 ), color:colors[colorcounter] };
          schema.rows[linecounter] =  { name: "row x", values: new Array (columnsfromline.length - 1) };
  }
 
@@ -1093,7 +1093,7 @@ console.log ("linecounter is " + linecounter)
                  else if ( linecounter > 0    ) {
                             if (columncounter == 0) {
 
-                            schema.rows[linecounter-1].name = 'row  ' +   (linecounter   );
+                            schema.rows[linecounter-1].name = 'row  ' +   (linecounter           );
                             }
 
                             if (typeof columnsfromline[columncounter] != 'undefined')
