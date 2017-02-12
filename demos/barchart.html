@@ -31,23 +31,25 @@
     <script type="text/javascript" src="../fonts/helvetiker_bold.typeface.js"></script>
 
 </head>
-<body bgcolor="##58ACFA">
+<body bgcolor="#D8CEF6">
 <div id="wrapper">
 
 
-<font color="#E0E6F8">
-    <div align="right"> <a href="barchart.html"><font size="+2" color="#F3F781">New graph</a></div>
-   <font size="+1" color="#E0E6F8">
-    <form>
-     <input type="radio" name="bartype" onchange="hei();" value="type2" checked>Use first row and first column on axises(type1)<br>
-     <input type="radio" name="bartype" onchange="hei2();" value="type2" checked>Use first row on axis(type2)<br>
-     <input type="radio" name="bartype" onchange="hei3();" value="type3"> Use colnr and rowno on axises(type3)<br>
 
+    <div align="left"> <a href="barchart.html"><font size="+2" color="#210B61">New graph</a></div><br>
+   <font size="+1" color="#151515">
+    Choose graph style:
+       <form>
+        <input type="radio" name="bartype" onchange="hei3();" value="type3"> Show dataset in 3D<br><br>
+        <input type="radio" name="bartype" onchange="hei2();" value="type2" checked> Show dataset in 3d <br>but use 1st row as column names<br><br>
+        <input type="radio" name="bartype" onchange="hei();" value="type2" checked>Show dataset in 3d <br>but use 1st row and 1st column as column and row names</names><br><br>
+d
     </form>
        <br>
+       Choose file format:
        <form>
-           <input type="radio" name="bartype" onchange="setCommaSeparated();"  value="comma" checked>Dataset is comma separated<br>
-           <input type="radio" name="bartype" onchange="setSemicolonSeparated();" value="semicolon">Dataset is semicolon separated<br>
+           <input type="radio" name="bartype" onchange="setCommaSeparated();"  value="comma" checked>Dataset is comma separated<br><br>
+           <input type="radio" name="bartype" onchange="setSemicolonSeparated();" value="semicolon">Dataset is semicolon separated<br><br>
        </form>
 
     Select a text file:
