@@ -1,9 +1,9 @@
 #wrapper {
     margin: 0 auto;
     position: absolute;
-    width:  220px;
+    width:  100px;
     background: #EFF5FB;
-    padding: 20px;
+    padding: 2px;
 }
 
 #fileDisplayArea {
@@ -12,4 +12,11 @@
 body {
     margin: 0;
     padding: 0;
+}
+
+
+div.left {
+     font-size: 12px;
+    margin: 2px 0 2px 0;
+    padding: 2px;
 }

@@ -1035,7 +1035,7 @@ console.log ("linecounter is " + linecounter)
 
         for ( var k = 0 ; k < columnsfromline.length ; k++ ) {
          if ( isNaN(columnsfromline[k]) ) {
-        columnsfromline[k] = 0;
+       // columnsfromline[k] = 0;
         }
     }
 
@@ -1063,7 +1063,7 @@ console.log ("linecounter is " + linecounter)
                                   schema.rows[linecounter-1].name = prefix + ' ' +      columnsfromline[columncounter];
                                   }
 
-                                  if (typeof columnsfromline[columncounter] != 'undefined')
+                                  else if (typeof columnsfromline[columncounter] != 'undefined')
                                    if ( isNaN ( columnsfromline[columncounter] )) {
                                    schema.rows[linecounter-1].values[columncounter-1] = 0;
                                    } else
