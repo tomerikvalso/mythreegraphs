@@ -1034,7 +1034,7 @@ console.log ("linecounter is " + linecounter)
      }
 
         for ( var k = 0 ; k < columnsfromline.length ; k++ ) {
-        if ( parseInt(columnsfromline[k])== 'NaN' ) {
+         if ( isNaN(columnsfromline[k]) ) {
         columnsfromline[k] = 0;
         }
     }
@@ -1064,8 +1064,15 @@ console.log ("linecounter is " + linecounter)
                                   }
 
                                   if (typeof columnsfromline[columncounter] != 'undefined')
+                                   if ( isNaN ( columnsfromline[columncounter] )) {
+                                   schema.rows[linecounter-1].values[columncounter-1] = 0;
+                                   } else
+                                   {
+                                     schema.rows[linecounter-1].values[columncounter-1] =   columnsfromline[columncounter];
                                                    //schema.rows[linecounter-1].values[columncounter-1]
-                                                    schema.rows[linecounter-1].values[columncounter-1] = parseInt(columnsfromline[columncounter]);
+
+                                   }
+
 
                                   }
                       else {
@@ -1098,7 +1105,12 @@ console.log ("linecounter is " + linecounter)
 
                             if (typeof columnsfromline[columncounter] != 'undefined')
                                              //schema.rows[linecounter-1].values[columncounter-1]
-                                              schema.rows[linecounter-1].values[columncounter] = parseInt(columnsfromline[columncounter]);
+                                             if ( isNaN (columnsfromline[columncounter] )) {
+                                                schema.rows[linecounter-1].values[columncounter]  = 0;
+                                             } else {
+                                                schema.rows[linecounter-1].values[columncounter] =   columnsfromline[columncounter];
+                                             }
+
 
                             }
                 else {
@@ -1126,9 +1138,19 @@ console.log ("linecounter is " + linecounter)
                 //     else if ( linecounter > 0    ) {
                 console.log('linecounter her' + linecounter)
                                 schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
-                                if (typeof columnsfromline[columncounter] != 'undefined')
+                                if (typeof columnsfromline[columncounter] != 'undefined') {
+
+                                    if ( isNaN(  columnsfromline[columncounter]))
+
+                                     {
+                                        schema.rows[linecounter].values[columncounter] = 0;
+                                    } else {
+                                         schema.rows[linecounter].values[columncounter] =   columnsfromline[columncounter];
+                                    }
+                                }
+
                                                  //schema.rows[linecounter-1].values[columncounter-1]
-                                                  schema.rows[linecounter].values[columncounter] = parseInt(columnsfromline[columncounter]);
+
 
                              //   }
                 //    else {
@@ -1152,7 +1174,12 @@ console.log ("linecounter is " + linecounter)
     for( var j=0; j<schema.cols.length ; j++ ){
     //  console.log ( ' i og j ' + i + ' ' + j );
     //  console.log ( ' insert value ' + schema.rows[i].values[j] );
-      this.dataValues[i][schema.cols.length-j-1] = parseInt(schema.rows[i].values[j]);
+     if (isNaN( schema.rows[i].values[j] )){
+     this.dataValues[i][schema.cols.length-j-1] = 0;
+     } else {
+        this.dataValues[i][schema.cols.length-j-1] =   schema.rows[i].values[j];
+     }
+
     //  console.log ( ' after insert value *' +  this.dataValues[i][schema.cols.length-j-1] + '*' );
     }
   }
