@@ -960,6 +960,20 @@ var rowsarray = schemafromfile.split("\n");
 
 
 var separator = window.yourSeparatorVariable ;
+
+
+if ( separator == 'unknown') {
+
+var guesssemicolon = rowsarray[0].split(';');
+var guesscomma = rowsarray[0].split(',');
+if  ( guesssemicolon.length >guesscomma.length ) {
+separator = ';'
+} else {
+separator = ',';
+}
+}
+
+
 var columnsfromline = rowsarray[0].split(separator);
 
 var antallkolonnerimatrise = 0;
@@ -1019,17 +1033,6 @@ for   (  linecounter = 0 ; linecounter <  rowsinuse  ; linecounter ++  ) {
 
 //  guess format
 
-
-if ( separator = 'unknown') {
-
-var guesssemicolon = rowsarray[0].split(';');
-var guesscomma = rowsarray[0].split(',');
-if  ( guesssemicolon>guesscomma ) {
-separator = ';'
-} else {
-separator = ',';
-}
-}
 
 
 for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
@@ -1150,7 +1153,6 @@ console.log ("linecounter is " + linecounter)
                  //     schema.cols[columncounter].name= 'column ' + (columncounter + 1)
               //     }
                 //     else if ( linecounter > 0    ) {
-                console.log('linecounter her' + linecounter)
                                 schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
                                 if (typeof columnsfromline[columncounter] != 'undefined') {
 
