@@ -1017,6 +1017,20 @@ for   (  linecounter = 0 ; linecounter <  rowsinuse  ; linecounter ++  ) {
 
 
 
+//  guess format
+
+
+if ( separator = 'unknown') {
+
+var guesssemicolon = rowsarray[0].split(';');
+var guesscomma = rowsarray[0].split(',');
+if  ( guesssemicolon>guesscomma ) {
+separator = ';'
+} else {
+separator = ',';
+}
+}
+
 
 for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 console.log ("linecounter is " + linecounter)
