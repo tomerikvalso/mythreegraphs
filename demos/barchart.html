@@ -42,16 +42,16 @@
 
     Choose graph style:
        <form>
-           <input type="radio" name="bartype" onchange="hei();" value="type1" checked>Show dataset in 3D <br>but use 1st row and 1st column as column and row names</names><br>
-           <input type="radio" name="bartype" onchange="hei2();" value="type2" checked> Show dataset in 3D <br>but use 1st row as column names<br>  <br>
-           <input type="radio" name="bartype" onchange="hei3();" value="type3"> Show dataset in 3D<br><br>
+           <input type="radio" name="bartype" onchange="printCellValuesOnTwoAxises();" checked>Show dataset in 3D <br>but use 1st row and 1st column as column and row names</names><br>
+           <input type="radio" name="bartype" onchange="setNameOnOneAxises();"> Show dataset in 3D <br>but use 1st row as column names<br>  <br>
+           <input type="radio" name="bartype" onchange="setNameOnZeroAxises();"> Show dataset in 3D<br><br>
     </form>
 
        <br>
        Choose file format:
        <form>
-           <input type="radio" name="bartype" onchange="setCommaSeparated();"  value="comma" checked>Dataset is comma separated<br><br>
-           <input type="radio" name="bartype" onchange="setSemicolonSeparated();" value="semicolon">Dataset is semicolon separated<br><br>
+           <input type="radio" name="bartype" onchange="setCommaSeparated();"  value="" checked>Dataset is comma separated<br><br>
+           <input type="radio" name="bartype" onchange="setSemicolonSeparated();" value="">Dataset is semicolon separated<br><br>
        </form>
 
     Select a text file:
@@ -61,33 +61,26 @@
 
 
 <script>
-    function hei() {
-        var input = 22;
-        var i2 = input; // er denne bare tilgjengelig et post og get? document.getElementById("input");
-        window.yourGlobalVariable = 'type1';
-        var i3 = window.yourGlobalVariable;
-        window.myinit = 'init';
-
+    function setNameOnTwoAxises() {
+        window.axisnotation = 'nameOnTwoAxises';
     }
 
-
-    function hei2() {
-
-         window.yourGlobalVariable = 'type2';
+    function setNameOnOneAxises() {
+         window.axisnotation = 'nameOnOneAxises';
     }
 
-    function hei3() {
-         window.yourGlobalVariable = 'type3';
+    function setNameOnZeroAxises() {
+         window.axisnotation = 'nameOnZeroAxises';
     }
 
     function setCommaSeparated() {
-         window.yourSeparatorVariable = ',';
+         window.separator = ',';
     }
     function setSemicolonSeparated() {
-         window.yourSeparatorVariable = ';';
+         window.separator = ';';
     }
-window.yourGlobalVariable = 'type2';
-window.yourSeparatorVariable = ',';
+window.axisnotation = 'nameOnTwoAxises';
+window.separator = ',';
 </script>
 
 <script src="text.js"></script>
