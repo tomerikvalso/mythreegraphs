@@ -42,9 +42,9 @@
 
     Choose graph style:
        <form>
-           <input type="radio" name="bartype" onchange="printCellValuesOnTwoAxises();" checked>Show dataset in 3D <br>but use 1st row and 1st column as column and row names</names><br>
-           <input type="radio" name="bartype" onchange="setNameOnOneAxises();"> Show dataset in 3D <br>but use 1st row as column names<br>  <br>
-           <input type="radio" name="bartype" onchange="setNameOnZeroAxises();"> Show dataset in 3D<br><br>
+           <input type="radio" name="bartype" onchange="settwoaxis();" value="" checked>Show dataset in 3D <br>but use 1st row and 1st column as column and row names</names><br>
+           <input type="radio" name="bartype" onchange="setoneaxis();" value="" checked> Show dataset in 3D <br>but use 1st row as column names<br>  <br>
+           <input type="radio" name="bartype" onchange="setzeroaxis();" value=""> Show dataset in 3D<br><br>
     </form>
 
        <br>
@@ -61,26 +61,28 @@
 
 
 <script>
-    function setNameOnTwoAxises() {
-        window.axisnotation = 'nameOnTwoAxises';
+    function settwoaxis() {
+        window.datacellvalueonaxis = 'twoaxis';
     }
 
-    function setNameOnOneAxises() {
-         window.axisnotation = 'nameOnOneAxises';
+
+    function setoneaxis() {
+         window.datacellvalueonaxis = 'oneaxis';
     }
 
-    function setNameOnZeroAxises() {
-         window.axisnotation = 'nameOnZeroAxises';
+    function setzeroaxis() {
+         window.datacellvalueonaxis = 'zeroaxis';
     }
 
     function setCommaSeparated() {
-         window.separator = ',';
+         window.separatorchar = ',';
     }
     function setSemicolonSeparated() {
-         window.separator = ';';
+         window.separatorchar = ';';
     }
-window.axisnotation = 'nameOnTwoAxises';
-window.separator = ',';
+
+window.datacellvalueonaxis = 'zeroaxis';
+window.separatorchar = ',';
 </script>
 
 <script src="text.js"></script>

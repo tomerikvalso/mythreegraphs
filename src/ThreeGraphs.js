@@ -954,117 +954,121 @@ THREEGRAPHS.animate = function ( obj, type ){
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
 var prefix = '';
 
-var axisnotation = window.axisnotation;
 
-var allLinesArray = schemafromfile.split("\n");
 
-var separator = window.separator ;
+var rowsarray = schemafromfile.split("\n");
 
-if ( separator == 'unknown') {
 
-var wordsAssumedSemicolon = allLinesArray[0].split(';');
-var wordsAssumedComma = allLinesArray[0].split(',');
-if  ( wordsAssumedSemicolon.length >wordsAssumedComma.length ) {
-separator = ';'
+
+if ( window.separatorchar == 'unknown') {
+
+var guesssemicolon = rowsarray[0].split(';');
+var guesscomma = rowsarray[0].split(',');
+if  ( guesssemicolon.length >guesscomma.length ) {
+window.separatorchar = ';'
 } else {
-separator = ',';
+window.separatorchar = ',';
 }
 }
 
+var columnsfromline = rowsarray[0].split(window.separatorchar);
 
-var cellValuesFromOneLine = allLinesArray[0].split(separator);
-var numberOfColumnsShowedAsBars = 0;
+var numberofcolumnsshowedasbars = 0;
 
-if(axisnotation == 'nameOnTwoAxises') {
-numberOfColumnsShowedAsBars =  cellValuesFromOneLine.length - 1;
-} else if (axisnotation == 'nameOnOneAxises' ) {
-numberOfColumnsShowedAsBars = cellValuesFromOneLine.length ;
+
+if(window.datacellvalueonaxis == 'twoaxis') {
+numberofcolumnsshowedasbars =  columnsfromline.length - 1;
 } else {
-numberOfColumnsShowedAsBars = cellValuesFromOneLine.length ;
+numberofcolumnsshowedasbars = columnsfromline.length ;
 }
 
+
+var colors = ["123456", "654321", "981256"];
+
+
+
+//for ( p = 0 ; p <numberofcolumnsshowedasbars ; p ++ ){
+//         schema.cols[p].name= 'column ' +  p;
+//}
+
+var numberofrowsshowedasbars = 0;
+if ( window.datacellvalueonaxis == 'twoaxis' || window.datacellvalueonaxis == 'oneaxis'){
+numberofrowsshowedasbars =  rowsarray.length - 1
+} else {
+numberofrowsshowedasbars = rowsarray.length;
+}
 
 var schema = {
 cols:
-new Array(cellValuesFromOneLine.length - 1),
+new Array(numberofcolumnsshowedasbars),
 rows:
-new Array (line.length  - 1)
+new Array (numberofrowsshowedasbars)
 };
 
-var colors = ["123456", "654321", "981256"];
-var colorcounter = 0
-
-var numberOfRowsShowedAsBars = 0;
-if ( axisnotation == 'nameOnTwoAxises' || axisnotation == 'nameOnOneAxises'){
-numberOfRowsShowedAsBars =  allLinesArray.length - 1
-} else {
-numberOfRowsShowedAsBars = allLinesArray.length;
-}
-
-for   (  i = 0 ; i <  numberOfRowsShowedAsBars  ; i ++  ) {
- for   (  j = 0 ; j <  numberOfColumnsShowedAsBars ; j ++  ) {
-         schema.cols[j] =  { name:"col" + (j + 1 ), color:colors[colorcounter] };
-         schema.rows[linecounter] =  { name: "row x", values: new Array (cellValuesFromOneLine.length - 1) };
+//initalizing empty schema with default values
+for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounter ++  ) {
+ for   (  columncounter = 0 ; columncounter <  numberofcolumnsshowedasbars ; columncounter ++  ) {
+         schema.cols[columncounter] =  { name:"col" + (columncounter + 1 ), color:colors[0] };
+         schema.rows[linecounter] =  { name: "row x", values: new Array (numberofcolumnsshowedasbars) };
  }
 
-  if (colorcounter == 2 ) {
-             colorcounter = 0 ;
-  } else {
-     colorcounter = colorcounter + 1;
-  }
+
 }
 
+//  guess format
 
-for   (  allLinesArraycounter = 0 ; allLinesArraycounter < allLinesArray.length  ; allLinesArraycounter ++  ) {
-console.log ("linecounter is " + allLinesArraycounter)
+for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
+console.log ("linecounter is " + linecounter)
  //coloumn names
-    console.log('found allLinesArray ' +line[linecounter] );
-    var cellValuesFromOneLine = allLinesArray[linecounter].split(separator);
-    // wash cellValuesFromOneLine
-    for ( var k = 0 ; k < numberOfColumnsShowedAsBars ; k++ ) {
+    console.log('found line ' +rowsarray[linecounter] );
+    var columnsfromline = rowsarray[linecounter].split(window.separatorchar);
+    // wash columnsfromline
+    for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
 
-        console.log('pre '   + cellValuesFromOneLine[k] )
-           cellValuesFromOneLine[k] = cellValuesFromOneLine[k].replace('""','0')
+        console.log('pre '   + columnsfromline[k] )
+           columnsfromline[k] = columnsfromline[k].replace('""','0')
 
-            cellValuesFromOneLine[k] = cellValuesFromOneLine[k].split('"').join('');
-            console.log ('post ' +  cellValuesFromOneLine[k]   )
+            columnsfromline[k] = columnsfromline[k].split('"').join('');
+            console.log ('post ' +  columnsfromline[k]   )
      }
 
-        for ( var k = 0 ; k < cellValuesFromOneLine.length ; k++ ) {
-         if ( isNaN(cellValuesFromOneLine[k]) ) {
-       // cellValuesFromOneLine[k] = 0;
+        for ( var k = 0 ; k < columnsfromline.length ; k++ ) {
+         if ( isNaN(columnsfromline[k]) ) {
+       // columnsfromline[k] = 0;
         }
     }
 
-    if (axisnotation == 'nameOnTwoAxises') {
-         console.log ( 'nameOnTwoAxises')
+    if (window.datacellvalueonaxis == 'twoaxis') {
+         console.log ( 'twoaxis')
 
-          for   (  j = 0 ; j <  cellValuesFromOneLine.length ; j ++  ) {
-                  console.log('found  value ' +cellValuesFromOneLine[j] );
+          for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
+                  console.log('found  value ' +columnsfromline[columncounter] );
                    // do nothing as this field is not in use
 
-                  // allLinesArraycounter = 0 means columnsnames
+                  // linecounter = 0 means columnsnames
                     if (linecounter == 0  ) {
-                   if (j==0){
 
-                        prefix = cellValuesFromOneLine[j];
+
+                        if (columncounter==0){
+
+                        prefix = columnsfromline[columncounter];
                         } else {
-                        schema.cols[j-1].name=cellValuesFromOneLine[j];
+                        schema.cols[columncounter-1].name=columnsfromline[columncounter];
                         }
                      }
-                       else if ( allLinesArraycounter > 0    ) {
-                                  if (j == 0) {
+                       else if ( linecounter > 0    ) {
+                                  if (columncounter == 0) {
 
-                                  schema.rows[linecounter-1].name = prefix + ' ' +      cellValuesFromOneLine[j];
+                                  schema.rows[linecounter-1].name = prefix + ' ' +      columnsfromline[columncounter];
                                   }
 
-                                  else if (typeof cellValuesFromOneLine[j] != 'undefined')
-                                   if ( isNaN ( cellValuesFromOneLine[j] )) {
-                                   schema.rows[linecounter-1].values[j-1] = 0;
+                                  else if (typeof columnsfromline[columncounter] != 'undefined')
+                                   if ( isNaN ( columnsfromline[columncounter] )) {
+                                   schema.rows[linecounter-1].values[columncounter-1] = 0;
                                    } else
                                    {
-                                     schema.rows[linecounter-1].values[j-1] =   cellValuesFromOneLine[j];
-                                                   //schema.rows[linecounter-1].values[j-1]
+                                     schema.rows[linecounter-1].values[columncounter-1] =   columnsfromline[columncounter];
+                                                   //schema.rows[linecounter-1].values[columncounter-1]
 
                                    }
 
@@ -1076,33 +1080,34 @@ console.log ("linecounter is " + allLinesArraycounter)
 
                       }
               } // end for loop inner
-    } else if ( axisnotation == 'nameOnOneAxises'  )    {
+    } else if ( window.datacellvalueonaxis == 'oneaxis'  )    {
     console.log ( 'type2  ')
 
-    for   (  j = 0 ; j <  cellValuesFromOneLine.length ; j ++  ) {
-            console.log('found  value ' +cellValuesFromOneLine[j] );
+    for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
+            console.log('found  value ' +columnsfromline[columncounter] );
              // do nothing as this field is not in use
 
+            // linecounter = 0 means columnsnames
               if (linecounter == 0  ) {
 
-                  schema.cols[j].name=cellValuesFromOneLine[j];
-                  if (j==0){
+                  schema.cols[columncounter].name=columnsfromline[columncounter];
+                  if (columncounter==0){
 
-                  prefix = cellValuesFromOneLine[j];
+                  prefix = columnsfromline[columncounter];
                   }
                }
-                 else if ( allLinesArraycounter > 0    ) {
-                            if (j == 0) {
+                 else if ( linecounter > 0    ) {
+                            if (columncounter == 0) {
 
                             schema.rows[linecounter-1].name = 'row  ' +   (linecounter           );
                             }
 
-                            if (typeof cellValuesFromOneLine[j] != 'undefined')
-                                             //schema.rows[linecounter-1].values[j-1]
-                                             if ( isNaN (cellValuesFromOneLine[j] )) {
-                                                schema.rows[linecounter-1].values[j]  = 0;
+                            if (typeof columnsfromline[columncounter] != 'undefined')
+                                             //schema.rows[linecounter-1].values[columncounter-1]
+                                             if ( isNaN (columnsfromline[columncounter] )) {
+                                                schema.rows[linecounter-1].values[columncounter]  = 0;
                                              } else {
-                                                schema.rows[linecounter-1].values[j] =   cellValuesFromOneLine[j];
+                                                schema.rows[linecounter-1].values[columncounter] =   columnsfromline[columncounter];
                                              }
 
 
@@ -1117,32 +1122,32 @@ console.log ("linecounter is " + allLinesArraycounter)
     }
     // type3
     else {
-     console.log ( 'type3 allLinesArraycounter er ' + allLinesArraycounter)
+     console.log ( 'type3 linecounter er ' + linecounter)
      // INIT COLUMNS NAMES
 
-        for   (  j = 0 ; j <  cellValuesFromOneLine.length ; j ++  ) {
-                console.log('found  value ' +cellValuesFromOneLine[j] );
+        for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
+                console.log('found  value ' +columnsfromline[columncounter] );
                  // do nothing as this field is not in use
 
-                // allLinesArraycounter = 0 means columnsnames
+                // linecounter = 0 means columnsnames
                //   if (linecounter == 0  ) {
 //console.log ( '  skjer dette ')
-                 //     schema.cols[j].name= 'column ' + (j + 1)
+                 //     schema.cols[columncounter].name= 'column ' + (columncounter + 1)
               //     }
-                //     else if ( allLinesArraycounter > 0    ) {
+                //     else if ( linecounter > 0    ) {
                                 schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
-                                if (typeof cellValuesFromOneLine[j] != 'undefined') {
+                                if (typeof columnsfromline[columncounter] != 'undefined') {
 
-                                    if ( isNaN(  cellValuesFromOneLine[j]))
+                                    if ( isNaN(  columnsfromline[columncounter]))
 
                                      {
-                                        schema.rows[linecounter].values[j] = 0;
+                                        schema.rows[linecounter].values[columncounter] = 0;
                                     } else {
-                                         schema.rows[linecounter].values[j] =   cellValuesFromOneLine[j];
+                                         schema.rows[linecounter].values[columncounter] =   columnsfromline[columncounter];
                                     }
                                 }
 
-                                                 //schema.rows[linecounter-1].values[j-1]
+                                                 //schema.rows[linecounter-1].values[columncounter-1]
 
 
                              //   }
@@ -1435,7 +1440,7 @@ THREEGRAPHS.BarChart.prototype = {
 
       var groundSizeX = squareStep*this.schema.rows.length;
       var groundSizeY = squareStep*this.schema.cols.length;
-      var allLinesArrayMaterial = new THREE.LineBasicMaterial( { color: 0xaaaaaa,
+      var lineMaterial = new THREE.LineBasicMaterial( { color: 0xaaaaaa,
                                                         opacity: 0.8 } );
 
       // Adding the X ground
@@ -1452,8 +1457,8 @@ THREEGRAPHS.BarChart.prototype = {
         geometry.vertices.push( new THREE.Vector3( i, 0, groundSizeY ) );
       }
 
-      // Creating the allLinesArray object and positioning it
-      var groundX = new THREE.Line( geometry, allLinesArrayMaterial );
+      // Creating the line object and positioning it
+      var groundX = new THREE.Line( geometry, lineMaterial );
       groundX.type = THREE.LinePieces;
       groundX.position.y = THREEGRAPHS.Settings.yDeviation;
       groundX.position.z = THREEGRAPHS.Settings.zDeviation;
@@ -1469,8 +1474,8 @@ THREEGRAPHS.BarChart.prototype = {
         geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
       }
 
-      // Creating the allLinesArray object and positioning it
-      var groundY = new THREE.Line( geometry, allLinesArrayMaterial );
+      // Creating the line object and positioning it
+      var groundY = new THREE.Line( geometry, lineMaterial );
       groundY.rotation.set( Math.PI/2, 0, 0 );
       groundY.type = THREE.LinePieces;
       groundY.position.y = -THREEGRAPHS.Settings.yDeviation;
@@ -1487,8 +1492,8 @@ THREEGRAPHS.BarChart.prototype = {
         geometry.vertices.push( new THREE.Vector3(  groundSizeY, 0, i ) );
       }
 
-      // Creating the allLinesArray object and positioning it
-      var groundZ = new THREE.Line( geometry, allLinesArrayMaterial );
+      // Creating the line object and positioning it
+      var groundZ = new THREE.Line( geometry, lineMaterial );
       groundZ.rotation.set( Math.PI/2, 0, Math.PI/2 );
       groundZ.type = THREE.LinePieces;
       groundZ.position.y = -THREEGRAPHS.Settings.yDeviation;
@@ -2077,7 +2082,7 @@ THREEGRAPHS.AreaChart.prototype = {
 
     var groundSizeX = sqStep*this.schema.rows.length;
     var groundSizeY = sqStep*this.schema.cols.length;
-    var allLinesArrayMaterial = new THREE.LineBasicMaterial( { color: 0xaaaaaa,
+    var lineMaterial = new THREE.LineBasicMaterial( { color: 0xaaaaaa,
                                                       opacity: 0.8 } );
 
     // Adding the X ground
@@ -2094,8 +2099,8 @@ THREEGRAPHS.AreaChart.prototype = {
       geometry.vertices.push( new THREE.Vector3( i, 0, groundSizeY ) );
     }
 
-    // Creating the allLinesArray object and positioning it
-    var groundX = new THREE.Line( geometry, allLinesArrayMaterial );
+    // Creating the line object and positioning it
+    var groundX = new THREE.Line( geometry, lineMaterial );
     groundX.type = THREE.LinePieces;
     groundX.position.y = THREEGRAPHS.Settings.yDeviation;
     groundX.position.z = THREEGRAPHS.Settings.zDeviation;
@@ -2111,8 +2116,8 @@ THREEGRAPHS.AreaChart.prototype = {
       geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
     }
 
-    // Creating the allLinesArray object and positioning it
-    var groundY = new THREE.Line( geometry, allLinesArrayMaterial );
+    // Creating the line object and positioning it
+    var groundY = new THREE.Line( geometry, lineMaterial );
     groundY.rotation.set( Math.PI/2, 0, 0 );
     groundY.type = THREE.LinePieces;
     groundY.position.y = -THREEGRAPHS.Settings.yDeviation;
@@ -2129,8 +2134,8 @@ THREEGRAPHS.AreaChart.prototype = {
       geometry.vertices.push( new THREE.Vector3(  groundSizeY, 0, i ) );
     }
 
-    // Creating the allLinesArray object and positioning it
-    var groundZ = new THREE.Line( geometry, allLinesArrayMaterial );
+    // Creating the line object and positioning it
+    var groundZ = new THREE.Line( geometry, lineMaterial );
     groundZ.rotation.set( Math.PI/2, 0, Math.PI/2 );
     groundZ.type = THREE.LinePieces;
     groundZ.position.y = -THREEGRAPHS.Settings.yDeviation;
