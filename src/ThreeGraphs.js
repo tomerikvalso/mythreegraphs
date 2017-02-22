@@ -962,9 +962,9 @@ var rowsarray = schemafromfile.split("\n");
 
 if ( window.separatorchar == 'unknown') {
 
-var guesssemicolon = rowsarray[0].split(';');
-var guesscomma = rowsarray[0].split(',');
-if  ( guesssemicolon.length >guesscomma.length ) {
+var assumesemicolon = rowsarray[0].split(';');
+var assumecomma = rowsarray[0].split(',');
+if  ( assumesemicolon.length >assumecomma.length ) {
 window.separatorchar = ';'
 } else {
 window.separatorchar = ',';
@@ -972,12 +972,10 @@ window.separatorchar = ',';
 }
 
 var columnsfromline = rowsarray[0].split(window.separatorchar);
-
 var numberofcolumnsshowedasbars = 0;
 
-
 if(window.datacellvalueonaxis == 'twoaxis') {
-numberofcolumnsshowedasbars =  columnsfromline.length - 1;
+numberofcolumnsshowedasbars =  rowsarray[0].split(window.separatorchar) - 1;
 } else {
 numberofcolumnsshowedasbars = columnsfromline.length ;
 }
@@ -1011,8 +1009,6 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
          schema.cols[columncounter] =  { name:"col" + (columncounter + 1 ), color:colors[0] };
          schema.rows[linecounter] =  { name: "row x", values: new Array (numberofcolumnsshowedasbars) };
  }
-
-
 }
 
 //  guess format
