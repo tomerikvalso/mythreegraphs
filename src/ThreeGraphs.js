@@ -957,7 +957,7 @@ var prefix = '';
 
 
 var rowsarray = schemafromfile.split("\n");
-
+alert('rowsarray' + rowsarray)
 
 
 if ( window.separatorchar == 'unknown') {
@@ -970,9 +970,11 @@ window.separatorchar = ';'
 window.separatorchar = ',';
 }
 }
-
+alert ( 'skjerdenne'    );
 var columnsfromline = rowsarray[0].split(window.separatorchar);
 var numberofcolumnsshowedasbars = 0;
+console.log('pre columnsfromline'   );
+console.log('columnsfromline' + columnsfromline );
 
 if(window.datacellvalueonaxis == 'twoaxis') {
 numberofcolumnsshowedasbars =  rowsarray[0].split(window.separatorchar) - 1;
@@ -991,10 +993,16 @@ var colors = ["123456", "654321", "981256"];
 
 var numberofrowsshowedasbars = 0;
 if ( window.datacellvalueonaxis == 'twoaxis' || window.datacellvalueonaxis == 'oneaxis'){
+alert('if')
 numberofrowsshowedasbars =  rowsarray.length - 1
 } else {
-numberofrowsshowedasbars = rowsarray.length;
+alert('else')
+numberofrowsshowedasbars =  rowsarray.length
+
 }
+
+console.log('numberofcolumnsshowedasbars2 ' + numberofcolumnsshowedasbars);
+console.log('numberofrowsshowedasbars2 ' + numberofrowsshowedasbars);
 
 var schema = {
 cols:
@@ -1021,12 +1029,10 @@ console.log ("linecounter is " + linecounter)
     // wash columnsfromline
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
 
-        console.log('pre '   + columnsfromline[k] )
            columnsfromline[k] = columnsfromline[k].replace('""','0')
 
             columnsfromline[k] = columnsfromline[k].split('"').join('');
-            console.log ('post ' +  columnsfromline[k]   )
-     }
+       }
 
         for ( var k = 0 ; k < columnsfromline.length ; k++ ) {
          if ( isNaN(columnsfromline[k]) ) {
