@@ -970,16 +970,14 @@ window.separatorchar = ';'
 window.separatorchar = ',';
 }
 }
-alert ( 'skjerdenne'    );
-var columnsfromline = rowsarray[0].split(window.separatorchar);
+
 var numberofcolumnsshowedasbars = 0;
-console.log('pre columnsfromline'   );
-console.log('columnsfromline' + columnsfromline );
+
 
 if(window.datacellvalueonaxis == 'twoaxis') {
 numberofcolumnsshowedasbars =  rowsarray[0].split(window.separatorchar) - 1;
 } else {
-numberofcolumnsshowedasbars = columnsfromline.length ;
+numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).length ;
 }
 
 
@@ -1025,26 +1023,24 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 console.log ("linecounter is " + linecounter)
  //coloumn names
     console.log('found line ' +rowsarray[linecounter] );
-    var columnsfromline = rowsarray[linecounter].split(window.separatorchar);
-    // wash columnsfromline
+    var fieldvaluesfromoneline = rowsarray[linecounter].split(window.separatorchar);
+    // wash fieldvaluesfromoneline
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
 
-           columnsfromline[k] = columnsfromline[k].replace('""','0')
-
-            columnsfromline[k] = columnsfromline[k].split('"').join('');
+            fieldvaluesfromoneline[k] = fieldvaluesfromoneline[k].split('"').join('');
        }
 
-        for ( var k = 0 ; k < columnsfromline.length ; k++ ) {
-         if ( isNaN(columnsfromline[k]) ) {
-       // columnsfromline[k] = 0;
+        for ( var k = 0 ; k < fieldvaluesfromoneline.length ; k++ ) {
+         if ( isNaN(fieldvaluesfromoneline[k]) ) {
+       // fieldvaluesfromoneline[k] = 0;
         }
     }
 
     if (window.datacellvalueonaxis == 'twoaxis') {
          console.log ( 'twoaxis')
 
-          for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
-                  console.log('found  value ' +columnsfromline[columncounter] );
+          for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
+                  console.log('found  value ' +fieldvaluesfromoneline[columncounter] );
                    // do nothing as this field is not in use
 
                   // linecounter = 0 means columnsnames
@@ -1053,23 +1049,23 @@ console.log ("linecounter is " + linecounter)
 
                         if (columncounter==0){
 
-                        prefix = columnsfromline[columncounter];
+                        prefix = fieldvaluesfromoneline[columncounter];
                         } else {
-                        schema.cols[columncounter-1].name=columnsfromline[columncounter];
+                        schema.cols[columncounter-1].name=fieldvaluesfromoneline[columncounter];
                         }
                      }
                        else if ( linecounter > 0    ) {
                                   if (columncounter == 0) {
 
-                                  schema.rows[linecounter-1].name = prefix + ' ' +      columnsfromline[columncounter];
+                                  schema.rows[linecounter-1].name = prefix + ' ' +      fieldvaluesfromoneline[columncounter];
                                   }
 
-                                  else if (typeof columnsfromline[columncounter] != 'undefined')
-                                   if ( isNaN ( columnsfromline[columncounter] )) {
+                                  else if (typeof fieldvaluesfromoneline[columncounter] != 'undefined')
+                                   if ( isNaN ( fieldvaluesfromoneline[columncounter] )) {
                                    schema.rows[linecounter-1].values[columncounter-1] = 0;
                                    } else
                                    {
-                                     schema.rows[linecounter-1].values[columncounter-1] =   columnsfromline[columncounter];
+                                     schema.rows[linecounter-1].values[columncounter-1] =   fieldvaluesfromoneline[columncounter];
                                                    //schema.rows[linecounter-1].values[columncounter-1]
 
                                    }
@@ -1085,17 +1081,17 @@ console.log ("linecounter is " + linecounter)
     } else if ( window.datacellvalueonaxis == 'oneaxis'  )    {
     console.log ( 'type2  ')
 
-    for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
-            console.log('found  value ' +columnsfromline[columncounter] );
+    for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
+            console.log('found  value ' +fieldvaluesfromoneline[columncounter] );
              // do nothing as this field is not in use
 
             // linecounter = 0 means columnsnames
               if (linecounter == 0  ) {
 
-                  schema.cols[columncounter].name=columnsfromline[columncounter];
+                  schema.cols[columncounter].name=fieldvaluesfromoneline[columncounter];
                   if (columncounter==0){
 
-                  prefix = columnsfromline[columncounter];
+                  prefix = fieldvaluesfromoneline[columncounter];
                   }
                }
                  else if ( linecounter > 0    ) {
@@ -1104,12 +1100,12 @@ console.log ("linecounter is " + linecounter)
                             schema.rows[linecounter-1].name = 'row  ' +   (linecounter           );
                             }
 
-                            if (typeof columnsfromline[columncounter] != 'undefined')
+                            if (typeof fieldvaluesfromoneline[columncounter] != 'undefined')
                                              //schema.rows[linecounter-1].values[columncounter-1]
-                                             if ( isNaN (columnsfromline[columncounter] )) {
+                                             if ( isNaN (fieldvaluesfromoneline[columncounter] )) {
                                                 schema.rows[linecounter-1].values[columncounter]  = 0;
                                              } else {
-                                                schema.rows[linecounter-1].values[columncounter] =   columnsfromline[columncounter];
+                                                schema.rows[linecounter-1].values[columncounter] =   fieldvaluesfromoneline[columncounter];
                                              }
 
 
@@ -1127,8 +1123,8 @@ console.log ("linecounter is " + linecounter)
      console.log ( 'type3 linecounter er ' + linecounter)
      // INIT COLUMNS NAMES
 
-        for   (  columncounter = 0 ; columncounter <  columnsfromline.length ; columncounter ++  ) {
-                console.log('found  value ' +columnsfromline[columncounter] );
+        for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
+                console.log('found  value ' +fieldvaluesfromoneline[columncounter] );
                  // do nothing as this field is not in use
 
                 // linecounter = 0 means columnsnames
@@ -1138,14 +1134,14 @@ console.log ("linecounter is " + linecounter)
               //     }
                 //     else if ( linecounter > 0    ) {
                                 schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
-                                if (typeof columnsfromline[columncounter] != 'undefined') {
+                                if (typeof fieldvaluesfromoneline[columncounter] != 'undefined') {
 
-                                    if ( isNaN(  columnsfromline[columncounter]))
+                                    if ( isNaN(  fieldvaluesfromoneline[columncounter]))
 
                                      {
                                         schema.rows[linecounter].values[columncounter] = 0;
                                     } else {
-                                         schema.rows[linecounter].values[columncounter] =   columnsfromline[columncounter];
+                                         schema.rows[linecounter].values[columncounter] =   fieldvaluesfromoneline[columncounter];
                                     }
                                 }
 
