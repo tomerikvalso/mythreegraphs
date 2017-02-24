@@ -1026,59 +1026,39 @@ console.log ("linecounter is " + linecounter)
     var fieldvaluesfromoneline = rowsarray[linecounter].split(window.separatorchar);
     // wash fieldvaluesfromoneline
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
-
-            fieldvaluesfromoneline[k] = fieldvaluesfromoneline[k].split('"').join('');
-       }
-
-        for ( var k = 0 ; k < fieldvaluesfromoneline.length ; k++ ) {
-         if ( isNaN(fieldvaluesfromoneline[k]) ) {
-       // fieldvaluesfromoneline[k] = 0;
-        }
+       fieldvaluesfromoneline[k] = fieldvaluesfromoneline[k].split('"').join('');
     }
 
     if (window.datacellvalueonaxis == 'twoaxis') {
          console.log ( 'twoaxis')
-
           for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
                   console.log('found  value ' +fieldvaluesfromoneline[columncounter] );
                    // do nothing as this field is not in use
 
                   // linecounter = 0 means columnsnames
-                    if (linecounter == 0  ) {
-
-
-                        if (columncounter==0){
-
-                        prefix = fieldvaluesfromoneline[columncounter];
-                        } else {
+                    if (linecounter == 0  && columncounter==0) {
+                        prefix = fieldvaluesfromoneline[0];
+                        }
+                        else   if( linecounter == 0 )  {
                         schema.cols[columncounter-1].name=fieldvaluesfromoneline[columncounter];
                         }
-                     }
-                       else if ( linecounter > 0    ) {
-                                  if (columncounter == 0) {
-
+                       else if ( linecounter > 0  && columncounter == 0  ) {
                                   schema.rows[linecounter-1].name = prefix + ' ' +      fieldvaluesfromoneline[columncounter];
-                                  }
-
-                                  else if (typeof fieldvaluesfromoneline[columncounter] != 'undefined')
-                                   if ( isNaN ( fieldvaluesfromoneline[columncounter] )) {
+                      }
+                       // set0 when nan
+                       else if (typeof fieldvaluesfromoneline[columncounter] != 'undefined' && isNaN ( fieldvaluesfromoneline[columncounter] ) )
+                      {
                                    schema.rows[linecounter-1].values[columncounter-1] = 0;
-                                   } else
-                                   {
+                      }
+                      ///regular data
+                      else
+                      {
                                      schema.rows[linecounter-1].values[columncounter-1] =   fieldvaluesfromoneline[columncounter];
                                                    //schema.rows[linecounter-1].values[columncounter-1]
-
-                                   }
-
-
-                                  }
-                      else {
-                       //datavalues
-                      alert('crap');
-
-                      }
-              } // end for loop inner
-    } else if ( window.datacellvalueonaxis == 'oneaxis'  )    {
+                        }
+    } // end for
+    }
+    else if ( window.datacellvalueonaxis == 'oneaxis'  )    {
     console.log ( 'type2  ')
 
     for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
