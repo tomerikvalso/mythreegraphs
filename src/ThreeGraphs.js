@@ -1039,62 +1039,46 @@ console.log ("linecounter is " + linecounter)
                     if (linecounter == 0  && columncounter==0) {
                         prefix = fieldvaluesfromoneline[0];
                         }
-                        else   if( linecounter == 0 )  {
+                    else   if( linecounter == 0 )  {
                         schema.cols[columncounter-1].name=fieldvaluesfromoneline[columncounter];
                         }
                        else if ( linecounter > 0  && columncounter == 0  ) {
                                   schema.rows[linecounter-1].name = prefix + ' ' +      fieldvaluesfromoneline[columncounter];
                       }
                        // set0 when nan
-                       else if (typeof fieldvaluesfromoneline[columncounter] != 'undefined' && isNaN ( fieldvaluesfromoneline[columncounter] ) )
+                       else if (linecounter > 0 && typeof fieldvaluesfromoneline[columncounter] != 'undefined' && isNaN ( fieldvaluesfromoneline[columncounter] ) )
                       {
                                    schema.rows[linecounter-1].values[columncounter-1] = 0;
                       }
                       ///regular data
                       else
                       {
-                                     schema.rows[linecounter-1].values[columncounter-1] =   fieldvaluesfromoneline[columncounter];
+                        schema.rows[linecounter-1].values[columncounter-1] =   fieldvaluesfromoneline[columncounter];
                                                    //schema.rows[linecounter-1].values[columncounter-1]
                         }
     } // end for
     }
     else if ( window.datacellvalueonaxis == 'oneaxis'  )    {
-    console.log ( 'type2  ')
-
     for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
-            console.log('found  value ' +fieldvaluesfromoneline[columncounter] );
-             // do nothing as this field is not in use
 
-            // linecounter = 0 means columnsnames
-              if (linecounter == 0  ) {
+              if ( linecounter == 0  && columncounter==0 ){
+               prefix = fieldvaluesfromoneline[columncounter];
+              }
 
-                  schema.cols[columncounter].name=fieldvaluesfromoneline[columncounter];
-                  if (columncounter==0){
+             if (linecounter == 0  ) {
+                schema.cols[columncounter].name=fieldvaluesfromoneline[columncounter];
 
-                  prefix = fieldvaluesfromoneline[columncounter];
-                  }
-               }
-                 else if ( linecounter > 0    ) {
-                            if (columncounter == 0) {
+             }
+             else if ( linecounter > 0 && (columncounter == 0   )) {
+                 schema.rows[linecounter-1].name = 'row  ' + linecounter           ;
 
-                            schema.rows[linecounter-1].name = 'row  ' +   (linecounter           );
-                            }
+             } else if (linecounter > 0 && typeof fieldvaluesfromoneline[columncounter] != 'undefined' && isNaN (fieldvaluesfromoneline[columncounter] )) {
+                schema.rows[linecounter-1].values[columncounter]  = 0;
+              }
+              else {
+                 schema.rows[linecounter-1].values[columncounter] =   fieldvaluesfromoneline[columncounter];
+              }
 
-                            if (typeof fieldvaluesfromoneline[columncounter] != 'undefined')
-                                             //schema.rows[linecounter-1].values[columncounter-1]
-                                             if ( isNaN (fieldvaluesfromoneline[columncounter] )) {
-                                                schema.rows[linecounter-1].values[columncounter]  = 0;
-                                             } else {
-                                                schema.rows[linecounter-1].values[columncounter] =   fieldvaluesfromoneline[columncounter];
-                                             }
-
-
-                            }
-                else {
-                 //datavalues
-                alert('crap');
-
-                }
         } // end for loop inner
 
     }
