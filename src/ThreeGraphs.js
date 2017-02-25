@@ -952,13 +952,10 @@ THREEGRAPHS.animate = function ( obj, type ){
  */
 
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
+var colors = ["123456", "654321", "981256"];
 var prefix = '';
 
-
-
 var rowsarray = schemafromfile.split("\n");
-alert('rowsarray' + rowsarray)
-
 
 if ( window.separatorchar == 'unknown') {
 
@@ -971,30 +968,19 @@ window.separatorchar = ',';
 }
 }
 
-var numberofcolumnsshowedasbars = 0;
-
+var numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).length;
 
 if(window.datacellvalueonaxis == 'twoaxis') {
-numberofcolumnsshowedasbars =  rowsarray[0].split(window.separatorchar) - 1;
-} else {
-numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).length ;
+numberofcolumnsshowedasbars =  numberofcolumnsshowedasbars - 1;
 }
 
 
-var colors = ["123456", "654321", "981256"];
-
-
-
-//for ( p = 0 ; p <numberofcolumnsshowedasbars ; p ++ ){
-//         schema.cols[p].name= 'column ' +  p;
-//}
 
 var numberofrowsshowedasbars = 0;
 if ( window.datacellvalueonaxis == 'twoaxis' || window.datacellvalueonaxis == 'oneaxis'){
-alert('if')
+
 numberofrowsshowedasbars =  rowsarray.length - 1
 } else {
-alert('else')
 numberofrowsshowedasbars =  rowsarray.length
 
 }
@@ -1061,16 +1047,13 @@ console.log ("linecounter is " + linecounter)
     else if ( window.datacellvalueonaxis == 'oneaxis'  )    {
     for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
 
-              if ( linecounter == 0  && columncounter==0 ){
-               prefix = fieldvaluesfromoneline[columncounter];
-              }
+
+            if ( linecounter > 0 && (columncounter == 0   )) {
+                             schema.rows[linecounter-1].name = 'row  ' + linecounter
+            }
 
              if (linecounter == 0  ) {
                 schema.cols[columncounter].name=fieldvaluesfromoneline[columncounter];
-
-             }
-             else if ( linecounter > 0 && (columncounter == 0   )) {
-                 schema.rows[linecounter-1].name = 'row  ' + linecounter           ;
 
              } else if (linecounter > 0 && typeof fieldvaluesfromoneline[columncounter] != 'undefined' && isNaN (fieldvaluesfromoneline[columncounter] )) {
                 schema.rows[linecounter-1].values[columncounter]  = 0;
