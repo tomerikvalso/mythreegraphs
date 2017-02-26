@@ -1034,6 +1034,7 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
           schema.cols[columncounter].name=fieldvaluesfromoneline[columncounter];
        } else if (linecounter > 0 && typeof fieldvaluesfromoneline[columncounter] != 'undefined' && isNaN (fieldvaluesfromoneline[columncounter] )) {
           schema.rows[linecounter-1].values[columncounter]  = 0;
+
        }
        else {
           schema.rows[linecounter-1].values[columncounter] =   fieldvaluesfromoneline[columncounter];
