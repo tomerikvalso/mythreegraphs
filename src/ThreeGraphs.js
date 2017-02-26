@@ -957,8 +957,8 @@ var prefix = '';
 
 var rowsarray = schemafromfile.split("\n");
 
+// chose the separatorchar from the most used character
 if ( window.separatorchar == 'unknown') {
-
 var assumesemicolon = rowsarray[0].split(';');
 var assumecomma = rowsarray[0].split(',');
 if  ( assumesemicolon.length >assumecomma.length ) {
@@ -970,6 +970,7 @@ window.separatorchar = ',';
 
 var numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).length;
 
+// one less since first rows used used as axis values
 if(window.datacellvalueonaxis == 'twoaxis') {
 numberofcolumnsshowedasbars =  numberofcolumnsshowedasbars - 1;
 }
@@ -1005,9 +1006,11 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     if (window.datacellvalueonaxis == 'twoaxis') {
      console.log('twoaxis');
           for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
+                    // value used on axis
                     if (linecounter == 0  && columncounter==0) {
                         prefix = fieldvaluesfromoneline[0];
                         }
+                     // value used on the other axis
                     else if( linecounter == 0 )  {
                        schema.cols[columncounter-1].name= fieldvaluesfromoneline[columncounter];
                     }
@@ -1017,8 +1020,7 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
                     else if (linecounter > 0  && isNaN ( fieldvaluesfromoneline[columncounter] ) ) {
                          schema.rows[linecounter-1].values[columncounter-1] = 0;
                     }
-                    else
-                    {
+                    else {
                         schema.rows[linecounter-1].values[columncounter-1] =   fieldvaluesfromoneline[columncounter];
                     }
           }
@@ -1034,7 +1036,6 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
           schema.cols[columncounter].name=fieldvaluesfromoneline[columncounter];
        } else if (  linecounter > 0 && isNaN (fieldvaluesfromoneline[columncounter] )) {
           schema.rows[linecounter-1].values[columncounter]  = 0;
-
        }
        else {
           schema.rows[linecounter-1].values[columncounter] =   fieldvaluesfromoneline[columncounter];
