@@ -1009,12 +1009,12 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
                         prefix = fieldvaluesfromoneline[0];
                         }
                     else if( linecounter == 0 )  {
-                        schema.cols[columncounter-1].name=fieldvaluesfromoneline[columncounter];
-                        }
+                       schema.cols[columncounter-1].name= fieldvaluesfromoneline[columncounter];
+                    }
                     else if ( linecounter > 0  && columncounter == 0  ) {
                         schema.rows[linecounter-1].name = prefix + ' ' +      fieldvaluesfromoneline[columncounter];
                     }
-                    else if (linecounter > 0 && typeof fieldvaluesfromoneline[columncounter] != 'undefined' && isNaN ( fieldvaluesfromoneline[columncounter] ) ) {
+                    else if (linecounter > 0  && isNaN ( fieldvaluesfromoneline[columncounter] ) ) {
                          schema.rows[linecounter-1].values[columncounter-1] = 0;
                     }
                     else
@@ -1027,12 +1027,12 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     console.log('oneaxis');
     for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
        if ( linecounter > 0 && (columncounter == 0)) {
-                             schema.rows[linecounter-1].name = 'row  ' + linecounter
+            schema.rows[linecounter-1].name = 'row  ' + linecounter
        }
 
        if (linecounter == 0  ) {
           schema.cols[columncounter].name=fieldvaluesfromoneline[columncounter];
-       } else if (linecounter > 0 && typeof fieldvaluesfromoneline[columncounter] != 'undefined' && isNaN (fieldvaluesfromoneline[columncounter] )) {
+       } else if (  linecounter > 0 && isNaN (fieldvaluesfromoneline[columncounter] )) {
           schema.rows[linecounter-1].values[columncounter]  = 0;
 
        }
@@ -1044,15 +1044,13 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     else {
      console.log('zeroaxis');
           for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
-                                schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
-                                if (typeof fieldvaluesfromoneline[columncounter] != 'undefined') {
-                                    if ( isNaN(  fieldvaluesfromoneline[columncounter]))
-                                     {
-                                        schema.rows[linecounter].values[columncounter] = 0;
-                                    } else {
-                                         schema.rows[linecounter].values[columncounter] =   fieldvaluesfromoneline[columncounter];
-                                    }
-                                }
+            schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
+            if (  isNaN(  fieldvaluesfromoneline[columncounter]))
+             {
+                schema.rows[linecounter].values[columncounter] = 0;
+            } else {
+                 schema.rows[linecounter].values[columncounter] =   fieldvaluesfromoneline[columncounter];
+            }
             }
     }
 } // end for loop
