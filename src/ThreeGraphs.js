@@ -952,6 +952,9 @@ THREEGRAPHS.animate = function ( obj, type ){
  */
 
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
+
+try {
+
 var colors = ["123456", "654321", "981256"];
 var prefix = '';
 
@@ -1002,6 +1005,9 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
 // end test format
 
 for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
+
+     if (rowsarray[linecounter].trim == '' ) continue;
+     
     var fieldvaluesfromoneline = rowsarray[linecounter].split(window.separatorchar);
 
     // test formar
@@ -1081,6 +1087,11 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     }
   }
 
+} // end try
+catch(err) {
+
+    document.getElementById("demo").innerHTML = 'Error reading datafile'; //err.message;
+}
 };
 
 THREEGRAPHS.BarChart.prototype = {
