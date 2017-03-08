@@ -997,8 +997,19 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
  }
 }
 
+ // test format
+ var numberoffieldsfirstline = rowsarray[0].split(window.separatorchar).length;
+// end test format
+
 for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     var fieldvaluesfromoneline = rowsarray[linecounter].split(window.separatorchar);
+
+    // test formar
+    //if ( numberoffieldsfirstline != fieldvaluesfromoneline.length) {
+    //    alert  ( 'wrong number of values in line. Missing field set to zero and extra fields are ignored. Line number: ' + linecounter);
+   // }
+    // end test format
+
     // remove all "
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
        fieldvaluesfromoneline[k] = fieldvaluesfromoneline[k].split('"').join('');
