@@ -1011,9 +1011,12 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     var fieldvaluesfromoneline = rowsarray[linecounter].split(window.separatorchar);
 
     // test formar
-    //if ( numberoffieldsfirstline != fieldvaluesfromoneline.length) {
+    if ( numberoffieldsfirstline != fieldvaluesfromoneline.length) {
     //    alert  ( 'wrong number of values in line. Missing field set to zero and extra fields are ignored. Line number: ' + linecounter);
-   // }
+    console.log('pre errror');
+    throw new Error("wrong number of values in line. " + ( linecounter + 1));
+     console.log('post errror');
+    }
     // end test format
 
     // remove all "
@@ -1021,7 +1024,7 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
        fieldvaluesfromoneline[k] = fieldvaluesfromoneline[k].split('"').join('');
     }
     if (window.datacellvalueonaxis == 'twoaxis') {
-     console.log('twoaxis');
+        console.log('twoaxis');
           for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
                     // value used on axis
                     if (linecounter == 0  && columncounter==0) {
@@ -1090,7 +1093,14 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 } // end try
 catch(err) {
 
-    document.getElementById("demo").innerHTML = 'Error reading datafile'; //err.message;
+    document.getElementById("demo").innerHTML = 'Error reading datafile: ' + err.message; //err.message;
+     schema = {
+    cols:
+    new Array(0),
+    rows:
+    new Array (0)
+    };
+    this.dataValues = [];
 }
 };
 
