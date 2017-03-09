@@ -1001,21 +1001,32 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
 }
 
  // test format
- var numberoffieldsfirstline = rowsarray[0].split(window.separatorchar).length;
+ var numberoffieldsfirstline = rowsarray[0].split(window.separatorchar);
+ if ( rowsarray[0].split(window.separatorchar) == null )  {
+     numberoffieldsfirstline = 0;
+ } else {
+     numberoffieldsfirstline = rowsarray[0].split(window.separatorchar.length);
+ }
+
 // end test format
 
 for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
      if (rowsarray[linecounter].trim == '' ) continue;
-     
-    var fieldvaluesfromoneline = rowsarray[linecounter].split(window.separatorchar);
+
+var fieldvaluesfromoneline = 0;
+
+ if ( rowsarray[linecounter].split(window.separatorchar) == null )  {
+     fieldvaluesfromoneline = 0;
+ } else {
+     fieldvaluesfromoneline = rowsarray[linecounter].split(window.separatorchar.length);
+ }
 
     // test formar
     if ( numberoffieldsfirstline != fieldvaluesfromoneline.length) {
     //    alert  ( 'wrong number of values in line. Missing field set to zero and extra fields are ignored. Line number: ' + linecounter);
     console.log('pre errror');
-    throw new Error("wrong number of values in line. " + ( linecounter + 1));
-     console.log('post errror');
+    throw new Error("wrong number of values in line. " + ( linecounter + +2));
     }
     // end test format
 
@@ -1092,15 +1103,7 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
 } // end try
 catch(err) {
-
     document.getElementById("demo").innerHTML = 'Error reading datafile: ' + err.message; //err.message;
-     schema = {
-    cols:
-    new Array(0),
-    rows:
-    new Array (0)
-    };
-    this.dataValues = [];
 }
 };
 
