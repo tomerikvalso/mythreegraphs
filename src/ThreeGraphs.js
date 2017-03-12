@@ -1001,11 +1001,11 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
 }
 
  // test format
- var numberoffieldsfirstline = rowsarray[0].split(window.separatorchar);
+ var numberoffieldsfirstline = 0;
  if ( rowsarray[0].split(window.separatorchar) == null )  {
      numberoffieldsfirstline = 0;
  } else {
-     numberoffieldsfirstline = rowsarray[0].split(window.separatorchar.length);
+     numberoffieldsfirstline = rowsarray[0].split(window.separatorchar).length;
  }
 
 // end test format
@@ -1014,74 +1014,77 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
      if (rowsarray[linecounter].trim == '' ) continue;
 
-var fieldvaluesfromoneline = 0;
+var  antallsjekk  = 0;
 
  if ( rowsarray[linecounter].split(window.separatorchar) == null )  {
-     fieldvaluesfromoneline = 0;
+     antallsjekk = 0;
  } else {
-     fieldvaluesfromoneline = rowsarray[linecounter].split(window.separatorchar.length);
+ antallsjekk  =rowsarray[linecounter].split(window.separatorchar).length;
  }
 
     // test formar
-    if ( numberoffieldsfirstline != fieldvaluesfromoneline.length) {
+    if ( numberoffieldsfirstline != antallsjekk ) {
     //    alert  ( 'wrong number of values in line. Missing field set to zero and extra fields are ignored. Line number: ' + linecounter);
     console.log('pre errror');
-    throw new Error("wrong number of values in line. " + ( linecounter + +2));
+    throw new Error("wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk);
     }
     // end test format
 
+var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
+
+
     // remove all "
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
-       fieldvaluesfromoneline[k] = fieldvaluesfromoneline[k].split('"').join('');
+       valuesfromcurrentline[k] = valuesfromcurrentline[k].split('"').join('');
     }
     if (window.datacellvalueonaxis == 'twoaxis') {
         console.log('twoaxis');
-          for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
+          for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
                     // value used on axis
                     if (linecounter == 0  && columncounter==0) {
-                        prefix = fieldvaluesfromoneline[0];
+                        prefix = valuesfromcurrentline[0];
                         }
                      // value used on the other axis
                     else if( linecounter == 0 )  {
-                       schema.cols[columncounter-1].name= fieldvaluesfromoneline[columncounter];
+                       schema.cols[columncounter-1].name= valuesfromcurrentline[columncounter];
                     }
                     else if ( linecounter > 0  && columncounter == 0  ) {
-                        schema.rows[linecounter-1].name = prefix + ' ' +      fieldvaluesfromoneline[columncounter];
+                        schema.rows[linecounter-1].name = prefix + ' ' +      valuesfromcurrentline[columncounter];
                     }
-                    else if (linecounter > 0  && isNaN ( fieldvaluesfromoneline[columncounter] ) ) {
+                    else if (linecounter > 0  && isNaN ( valuesfromcurrentline[columncounter] ) ) {
                          schema.rows[linecounter-1].values[columncounter-1] = 0;
                     }
                     else {
-                        schema.rows[linecounter-1].values[columncounter-1] =   fieldvaluesfromoneline[columncounter];
+                        schema.rows[linecounter-1].values[columncounter-1] =   valuesfromcurrentline[columncounter];
                     }
           }
     }
     else if ( window.datacellvalueonaxis == 'oneaxis'  )    {
     console.log('oneaxis');
-    for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
+    for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
        if ( linecounter > 0 && (columncounter == 0)) {
             schema.rows[linecounter-1].name = 'row  ' + linecounter
        }
 
        if (linecounter == 0  ) {
-          schema.cols[columncounter].name=fieldvaluesfromoneline[columncounter];
-       } else if (  linecounter > 0 && isNaN (fieldvaluesfromoneline[columncounter] )) {
+          schema.cols[columncounter].name=valuesfromcurrentline[columncounter];
+       } else if (  linecounter > 0 && isNaN (valuesfromcurrentline[columncounter] )) {
           schema.rows[linecounter-1].values[columncounter]  = 0;
        }
        else {
-          schema.rows[linecounter-1].values[columncounter] =   fieldvaluesfromoneline[columncounter];
+          schema.rows[linecounter-1].values[columncounter] =   valuesfromcurrentline[columncounter];
        }
       }
     }
     else {
      console.log('zeroaxis');
-          for   (  columncounter = 0 ; columncounter <  fieldvaluesfromoneline.length ; columncounter ++  ) {
+          for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
             schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
-            if (  isNaN(  fieldvaluesfromoneline[columncounter]))
+            if (  isNaN(  valuesfromcurrentline[columncounter]))
              {
                 schema.rows[linecounter].values[columncounter] = 0;
             } else {
-                 schema.rows[linecounter].values[columncounter] =   fieldvaluesfromoneline[columncounter];
+                 schema.rows[linecounter].values[columncounter] =   valuesfromcurrentline[columncounter];
             }
             }
     }
