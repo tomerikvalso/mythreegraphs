@@ -1012,13 +1012,20 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
 
 for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
-     if (rowsarray[linecounter].trim == '' ) continue;
 
+     //rowsarray[linecounter] = rowsarray[linecounter].replace('/\r?\n|\r/g','');
+      // fjerner cariaarge return
+      rowsarray[linecounter] =  rowsarray[linecounter].replace(String.fromCharCode(13),"");
+    if ( rowsarray[linecounter].length == 0  ) {
+       continue;
+    }
+ alert ( 'skal ikke skjer eteter 0' );
 var  antallsjekk  = 0;
 
  if ( rowsarray[linecounter].split(window.separatorchar) == null )  {
      antallsjekk = 0;
  } else {
+  alert ( 'bveridener 1 *' + rowsarray[linecounter] + '*' );
  antallsjekk  =rowsarray[linecounter].split(window.separatorchar).length;
  }
 
