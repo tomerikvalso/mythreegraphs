@@ -973,6 +973,10 @@ window.separatorchar = ',';
 
 var numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).length;
 
+} // end try
+catch(err) {
+    document.getElementById("demo").innerHTML = 'Error separator: ' + err.message; //err.message;
+}
 // one less since first rows used used as axis values
 if(window.datacellvalueonaxis == 'twoaxis') {
 numberofcolumnsshowedasbars =  numberofcolumnsshowedasbars - 1;
@@ -996,11 +1000,11 @@ new Array (numberofrowsshowedasbars)
 for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  numberofcolumnsshowedasbars ; columncounter ++  ) {
          schema.cols[columncounter] =  { name:"col" + (columncounter + 1 ), color:colors[0] };
-         schema.rows[linecounter] =  { name: "row x", values: new Array (numberofcolumnsshowedasbars) };
+         schema.rows[linecounter] =  { name: "row " + (linecounter + 1), values: new Array (numberofcolumnsshowedasbars) };
  }
 }
 
- // test format
+ // test number of columns
  var numberoffieldsfirstline = 0;
  if ( rowsarray[0].split(window.separatorchar) == null )  {
      numberoffieldsfirstline = 0;
@@ -1012,6 +1016,8 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
 
 for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
+    try {
+
 
      //rowsarray[linecounter] = rowsarray[linecounter].replace('/\r?\n|\r/g','');
       // fjerner cariaarge return
@@ -1019,20 +1025,18 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     if ( rowsarray[linecounter].length == 0  ) {
        continue;
     }
- alert ( 'skal ikke skjer eteter 0' );
-var  antallsjekk  = 0;
+
+    var  antallsjekk  = 0;
 
  if ( rowsarray[linecounter].split(window.separatorchar) == null )  {
      antallsjekk = 0;
  } else {
-  alert ( 'bveridener 1 *' + rowsarray[linecounter] + '*' );
+
  antallsjekk  =rowsarray[linecounter].split(window.separatorchar).length;
  }
 
     // test formar
     if ( numberoffieldsfirstline != antallsjekk ) {
-    //    alert  ( 'wrong number of values in line. Missing field set to zero and extra fields are ignored. Line number: ' + linecounter);
-    console.log('pre errror');
     throw new Error("wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk);
     }
     // end test format
@@ -1095,6 +1099,10 @@ var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
             }
             }
     }
+    }
+    catch(err) {
+        document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + 'Error readning line: ' + err.message; //err.message;
+    }
 } // end for loop
 
   this.schema = schema || 0;
@@ -1111,10 +1119,7 @@ var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
     }
   }
 
-} // end try
-catch(err) {
-    document.getElementById("demo").innerHTML = 'Error reading datafile: ' + err.message; //err.message;
-}
+
 };
 
 THREEGRAPHS.BarChart.prototype = {
