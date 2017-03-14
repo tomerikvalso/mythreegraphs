@@ -959,6 +959,10 @@ var colors = ["123456", "654321", "981256"];
 var prefix = '';
 
 var rowsarray = schemafromfile.split("\n");
+if (rowsarray.length == 1 && (rowsarray[0].replace(String.fromCharCode(13),"").length == 0) ) {
+alert  ('hei');
+throw 'Empty file'
+}
 
 // chose the separatorchar from the most used character
 if ( window.separatorchar == 'unknown') {
@@ -975,7 +979,7 @@ var numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).lengt
 
 } // end try
 catch(err) {
-    document.getElementById("demo").innerHTML = 'Error separator: ' + err.message; //err.message;
+    document.getElementById("demo").innerHTML = 'Error: ' + err.message; //err.message;
 }
 // one less since first rows used used as axis values
 if(window.datacellvalueonaxis == 'twoaxis') {
@@ -1102,6 +1106,7 @@ var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
     }
     catch(err) {
         document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + 'Error readning line: ' + err.message; //err.message;
+        throw 'Error2'
     }
 } // end for loop
 
