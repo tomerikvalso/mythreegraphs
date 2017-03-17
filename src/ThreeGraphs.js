@@ -1031,28 +1031,43 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     }
 
     var  antallsjekk  = 0;
-
+console.log('t1');
  if ( rowsarray[linecounter].split(window.separatorchar) == null )  {
+console.log('t2');
+
      antallsjekk = 0;
  } else {
+ console.log('t3');
 
- antallsjekk  =rowsarray[linecounter].split(window.separatorchar).length;
+     antallsjekk  =rowsarray[linecounter].split(window.separatorchar).length;
  }
+ console.log('t4');
+
+
 console.log ( 'tanllsjekke got ' + antallsjekk);
     // test formar
     if ( numberoffieldsfirstline != antallsjekk ) {
-       document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk + '. Ignoring line'; //err.message;
+       document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML +
+       "wrong number of values on line" + (linecounter + 2)  + ". Exptected " +
+       numberoffieldsfirstline + " values but found " + antallsjekk + '. Ignoring line'; //err.message;
 
     // throw new Error("wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk ) ;
     }
     // end test format
+    console.log('t4.51');
 
 var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
+    console.log('t4.52');
 
 
     // remove all "
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
-       valuesfromcurrentline[k] = valuesfromcurrentline[k].split('"').join('');
+    console.log('t5');
+       if (  valuesfromcurrentline[k] != undefined) {
+        valuesfromcurrentline[k] = valuesfromcurrentline[k].split('"').join('');
+       }
+    console.log('t6');
+
     }
     if (window.datacellvalueonaxis == 'twoaxis') {
         console.log('twoaxis');
@@ -1108,7 +1123,7 @@ var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
     }
     catch(err) {
         document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + 'Error readning line: ' + err.message; //err.message;
-        throw  new Error ('Something unexpected happened. Check datafile' )
+        throw  new Error ('Something unexpected happened. Check datafile' + err.message);
     }
 } // end for loop
 
