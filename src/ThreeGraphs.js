@@ -979,7 +979,14 @@ var numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).lengt
 
 } // end try
 catch(err) {
+    try {
+
     document.getElementById("demo").innerHTML = 'Error: ' + err.message; //err.message;
+    }
+    catch(err){
+    console.log ( 'consider adding div id=demo to see error messages');
+
+    }
 }
 // one less since first rows used used as axis values
 if(window.datacellvalueonaxis == 'twoaxis') {
@@ -1047,9 +1054,17 @@ console.log('t2');
 console.log ( 'tanllsjekke got ' + antallsjekk);
     // test formar
     if ( numberoffieldsfirstline != antallsjekk ) {
-       document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML +
-       "wrong number of values on line" + (linecounter + 2)  + ". Exptected " +
-       numberoffieldsfirstline + " values but found " + antallsjekk + '. Ignoring line'; //err.message;
+    try {
+
+        document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML +
+               "wrong number of values on line" + (linecounter + 2)  + ". Exptected " +
+               numberoffieldsfirstline + " values but found " + antallsjekk + '. Ignoring line'; //err.message;
+        }
+        catch(err){
+            console.log ( 'consider adding div id=demo to see error messages');
+
+        }
+
 
     // throw new Error("wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk ) ;
     }
@@ -1122,9 +1137,18 @@ var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
     }
     }
     catch(err) {
+        try {
         document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + 'Error readning line: ' + err.message; //err.message;
-        throw  new Error ('Something unexpected happened. Check datafile' + err.message);
-    }
+         }
+           catch(err) {
+               console.log ( 'consider adding div id=demo to see error messages');
+
+            }
+          throw  new Error ('Something unexpected happened. Check datafile' + err.message);
+
+       }
+
+
 } // end for loop
 
   this.schema = schema || 0;
