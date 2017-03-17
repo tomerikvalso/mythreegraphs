@@ -960,12 +960,12 @@ var prefix = '';
 
 var rowsarray = schemafromfile.split("\n");
 if (rowsarray.length == 1 && (rowsarray[0].replace(String.fromCharCode(13),"").length == 0) ) {
-alert  ('hei');
-throw 'Empty file'
+
+throw new Error('Empty file');
 }
 
 // chose the separatorchar from the most used character
-if ( window.separatorchar == 'unknown') {
+//if ( window.separatorchar == 'unknown') {
 var assumesemicolon = rowsarray[0].split(';');
 var assumecomma = rowsarray[0].split(',');
 if  ( assumesemicolon.length >assumecomma.length ) {
@@ -973,7 +973,7 @@ window.separatorchar = ';'
 } else {
 window.separatorchar = ',';
 }
-}
+//}
 
 var numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).length;
 
@@ -1038,10 +1038,12 @@ for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
  antallsjekk  =rowsarray[linecounter].split(window.separatorchar).length;
  }
-
+console.log ( 'tanllsjekke got ' + antallsjekk);
     // test formar
     if ( numberoffieldsfirstline != antallsjekk ) {
-    throw new Error("wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk);
+       document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + "wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk + '. Ignoring line'; //err.message;
+
+    // throw new Error("wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk ) ;
     }
     // end test format
 
@@ -1106,7 +1108,7 @@ var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
     }
     catch(err) {
         document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + 'Error readning line: ' + err.message; //err.message;
-        throw 'Error2'
+        throw  new Error ('Something unexpected happened. Check datafile' )
     }
 } // end for loop
 
