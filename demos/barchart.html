@@ -32,7 +32,7 @@
 
 </head>
 <body bgcolor="#D8CEF6">
-<p id="demo"></p>
+<p id="errormessage"></p>
 <div id="wrapper">
 
 
@@ -43,9 +43,10 @@
 
     Choose graph style:
        <form>
-           <input type="radio" name="bartype" onchange="settwoaxis();" value="" checked>Data values 2 axises</names><br>
+           <input type="radio" name="bartype" onchange="setzeroaxis();" value="" checked>No data values on axis<br><br>
            <input type="radio" name="bartype" onchange="setoneaxis();" value="">Data values 1 axis<br>  <br>
-           <input type="radio" name="bartype" onchange="setzeroaxis();" value="">No data values on axis<br><br>
+           <input type="radio" name="bartype" onchange="settwoaxis();" value="" >Data values 2 axises</names><br>
+
     </form>
 
     Select a text file:

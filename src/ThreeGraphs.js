@@ -981,11 +981,10 @@ var numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).lengt
 catch(err) {
     try {
 
-    document.getElementById("demo").innerHTML = 'Error: ' + err.message; //err.message;
+    document.getElementById("errormessage").innerHTML = 'Error: ' + err.message; //err.message;
     }
     catch(err){
     console.log ( 'consider adding div id=demo to see error messages');
-
     }
 }
 // one less since first rows used used as axis values
@@ -1028,61 +1027,39 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
 for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
     try {
-
-
-     //rowsarray[linecounter] = rowsarray[linecounter].replace('/\r?\n|\r/g','');
-      // fjerner cariaarge return
-      rowsarray[linecounter] =  rowsarray[linecounter].replace(String.fromCharCode(13),"");
+     rowsarray[linecounter] =  rowsarray[linecounter].replace(String.fromCharCode(13),"");
     if ( rowsarray[linecounter].length == 0  ) {
        continue;
     }
 
-    var  antallsjekk  = 0;
-console.log('t1');
+    var  numberOfColumnsInCurrentLine  = 0;
  if ( rowsarray[linecounter].split(window.separatorchar) == null )  {
-console.log('t2');
-
-     antallsjekk = 0;
+     numberOfColumnsInCurrentLine = 0;
  } else {
- console.log('t3');
-
-     antallsjekk  =rowsarray[linecounter].split(window.separatorchar).length;
+     numberOfColumnsInCurrentLine  =rowsarray[linecounter].split(window.separatorchar).length;
  }
- console.log('t4');
 
-
-console.log ( 'tanllsjekke got ' + antallsjekk);
     // test formar
-    if ( numberoffieldsfirstline != antallsjekk ) {
+    if ( numberoffieldsfirstline != numberOfColumnsInCurrentLine ) {
     try {
-
-        document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML +
+        document.getElementById("errormessage").innerHTML = document.getElementById("errormessage").innerHTML +
                "wrong number of values on line" + (linecounter + 2)  + ". Exptected " +
-               numberoffieldsfirstline + " values but found " + antallsjekk + '. Ignoring line.'; //err.message;
+               numberoffieldsfirstline + " values but found "
+               + numberOfColumnsInCurrentLine + ". Ignoring line."; //err.message;
         }
         catch(err){
             console.log ( 'consider adding div id=demo to see error messages');
-
         }
-
-
-    // throw new Error("wrong number of values on line" + (linecounter + 2)  + ". Exptected " + numberoffieldsfirstline + " values but found " + antallsjekk ) ;
     }
     // end test format
-    console.log('t4.51');
 
 var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
-    console.log('t4.52');
-
 
     // remove all "
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
-    console.log('t5');
        if (  valuesfromcurrentline[k] != undefined) {
         valuesfromcurrentline[k] = valuesfromcurrentline[k].split('"').join('');
        }
-    console.log('t6');
-
     }
     if (window.datacellvalueonaxis == 'twoaxis') {
         console.log('twoaxis');
@@ -1127,27 +1104,24 @@ var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
      console.log('zeroaxis');
           for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
             schema.rows[linecounter].name = 'row '       +   (linecounter + 1 );
-            if (  isNaN(  valuesfromcurrentline[columncounter]))
-             {
-                schema.rows[linecounter].values[columncounter] = 0;
-            } else {
-                 schema.rows[linecounter].values[columncounter] =   valuesfromcurrentline[columncounter];
-            }
+                if (  isNaN(  valuesfromcurrentline[columncounter]))
+                 {
+                    schema.rows[linecounter].values[columncounter] = 0;
+                } else {
+                     schema.rows[linecounter].values[columncounter] =   valuesfromcurrentline[columncounter];
+                }
             }
     }
     }
     catch(err) {
         try {
-        document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML + 'Error readning line: ' + err.message; //err.message;
+        document.getElementById("errormessage").innerHTML = document.getElementById("errormessage").innerHTML + 'Error readning line: ' + err.message; //err.message;
          }
            catch(err) {
                console.log ( 'consider adding div id=demo to see error messages');
-
             }
           throw  new Error ('Something unexpected happened. Check datafile' + err.message);
-
        }
-
 
 } // end for loop
 
