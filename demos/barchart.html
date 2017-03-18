@@ -48,13 +48,6 @@
            <input type="radio" name="bartype" onchange="setzeroaxis();" value="">No data values on axis<br><br>
     </form>
 
-       <br>
-       Choose file format:
-       <form>
-           <input type="radio" name="bartype" onchange="setCommaSeparated();"  value="" checked>Dataset is comma separated<br><br>
-           <input type="radio" name="bartype" onchange="setSemicolonSeparated();" value="">Dataset is semicolon separated<br><br>
-       </form>
-
     Select a text file:
     <input type="file" id="fileInput">
     </div>
@@ -79,11 +72,8 @@
     function setCommaSeparated() {
          window.separatorchar = ',';
     }
-    function setSemicolonSeparated() {
-         window.separatorchar = ';';
-    }
 
-window.separatorchar = ',';
+
 window.datacellvalueonaxis = 'twoaxis';
 
 </script>

@@ -1058,7 +1058,7 @@ console.log ( 'tanllsjekke got ' + antallsjekk);
 
         document.getElementById("demo").innerHTML = document.getElementById("demo").innerHTML +
                "wrong number of values on line" + (linecounter + 2)  + ". Exptected " +
-               numberoffieldsfirstline + " values but found " + antallsjekk + '. Ignoring line'; //err.message;
+               numberoffieldsfirstline + " values but found " + antallsjekk + '. Ignoring line.'; //err.message;
         }
         catch(err){
             console.log ( 'consider adding div id=demo to see error messages');
