@@ -992,6 +992,9 @@ if(window.datacellvalueonaxis == 'twoaxis') {
 numberofcolumnsshowedasbars =  numberofcolumnsshowedasbars - 1;
 }
 
+if ( window.datacellvalueonaxis == null || window.datacellvalueonaxis == isNaN) {
+    window.datacellvalueonaxis  = 'zeroaxis'
+}
 var numberofrowsshowedasbars = 0;
 if ( window.datacellvalueonaxis == 'twoaxis' || window.datacellvalueonaxis == 'oneaxis'){
   numberofrowsshowedasbars =  rowsarray.length - 1
