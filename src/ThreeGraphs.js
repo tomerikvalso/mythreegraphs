@@ -960,27 +960,21 @@ var prefix = '';
 
 var rowsarray = schemafromfile.split("\n");
 if (rowsarray.length == 1 && (rowsarray[0].replace(String.fromCharCode(13),"").length == 0) ) {
-
 throw new Error('Empty file');
 }
 
-// chose the separatorchar from the most used character
-//if ( window.separatorchar == 'unknown') {
-var assumesemicolon = rowsarray[0].split(';');
-var assumecomma = rowsarray[0].split(',');
-if  ( assumesemicolon.length >assumecomma.length ) {
+// use most frequent char as separator
+if  ( rowsarray[0].split(';').length >rowsarray[0].split(',').length ) {
 window.separatorchar = ';'
 } else {
 window.separatorchar = ',';
 }
-//}
 
 var numberofcolumnsshowedasbars = rowsarray[0].split(window.separatorchar).length;
 
 } // end try
 catch(err) {
     try {
-
     document.getElementById("errormessage").innerHTML = 'Error: ' + err.message; //err.message;
     }
     catch(err){
@@ -992,6 +986,7 @@ if(window.datacellvalueonaxis == 'twoaxis') {
 numberofcolumnsshowedasbars =  numberofcolumnsshowedasbars - 1;
 }
 
+//default is no data on axises
 if ( window.datacellvalueonaxis == null || window.datacellvalueonaxis == isNaN) {
     window.datacellvalueonaxis  = 'zeroaxis'
 }
@@ -1009,15 +1004,19 @@ rows:
 new Array (numberofrowsshowedasbars)
 };
 
+var currentcolor = 0;
 //initalizing empty schema with default values
 for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounter ++  ) {
  for   (  columncounter = 0 ; columncounter <  numberofcolumnsshowedasbars ; columncounter ++  ) {
-         schema.cols[columncounter] =  { name:"col" + (columncounter + 1 ), color:colors[0] };
+         schema.cols[columncounter] =  { name:"col" + (columncounter + 1 ), color:colors[currentcolor++] };
          schema.rows[linecounter] =  { name: "row " + (linecounter + 1), values: new Array (numberofcolumnsshowedasbars) };
+ if ( currentcolor > colors.length ) {
+    currentcolor = 0;
+ }
  }
 }
 
- // test number of columns
+ // decide number of columns
  var numberoffieldsfirstline = 0;
  if ( rowsarray[0].split(window.separatorchar) == null )  {
      numberoffieldsfirstline = 0;
@@ -1027,36 +1026,29 @@ for   (  linecounter = 0 ; linecounter <  numberofrowsshowedasbars  ; linecounte
 
 // end test format
 
-for   (  linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
+for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
+    // empty line
     try {
      rowsarray[linecounter] =  rowsarray[linecounter].replace(String.fromCharCode(13),"");
     if ( rowsarray[linecounter].length == 0  ) {
        continue;
     }
 
-    var  numberOfColumnsInCurrentLine  = 0;
- if ( rowsarray[linecounter].split(window.separatorchar) == null )  {
-     numberOfColumnsInCurrentLine = 0;
- } else {
-     numberOfColumnsInCurrentLine  =rowsarray[linecounter].split(window.separatorchar).length;
- }
-
-    // test formar
-    if ( numberoffieldsfirstline != numberOfColumnsInCurrentLine ) {
+    // test format anc continue after logging error
+    if ( numberoffieldsfirstline != rowsarray[linecounter].split(window.separatorchar).length ) {
     try {
         document.getElementById("errormessage").innerHTML = document.getElementById("errormessage").innerHTML +
                "wrong number of values on line" + (linecounter + 2)  + ". Exptected " +
                numberoffieldsfirstline + " values but found "
-               + numberOfColumnsInCurrentLine + ". Ignoring line."; //err.message;
+               + rowsarray[linecounter].split(window.separatorchar).length + ". Ignoring line."; //err.message;
         }
         catch(err){
             console.log ( 'consider adding div id=demo to see error messages');
         }
     }
-    // end test format
 
-var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
+    var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
 
     // remove all "
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
@@ -1064,6 +1056,7 @@ var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
         valuesfromcurrentline[k] = valuesfromcurrentline[k].split('"').join('');
        }
     }
+
     if (window.datacellvalueonaxis == 'twoaxis') {
         console.log('twoaxis');
           for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
