@@ -80,25 +80,17 @@ THREEGRAPHS.Utils.prototype.colorLuminance = function ( hex, lum ) {
 
 THREEGRAPHS.Utils.prototype.getMaxArr = function ( arr ){
   var maxVal = arr[0][0];
-
+ // TOM-ERIK START
   for( var i=0; i<arr.length; i++ ){
     for ( var j=0; j<arr[i].length; j++ ){
-   // console.log ( 'check   ' + i + ' ' + j +   arr[i][j]);
-      if( parseInt(arr[i][j]) > parseInt(maxVal ) || maxVal ==''){
-//console.log ( 'found new max   ' +    arr[i][j]);
+      if( !isNaN(arr[i][j]) && ( arr[i][j] > parseInt(maxVal ))  ){
       maxVal = arr[i][j];
-// console.log ( ' new max   ' +   maxVal);
-      } else {
-  //    console.log ( 'did not fin new max   ' +    arr[i][j]);
       }
-
-    //  console.log ( 'kept*' + maxVal +'*');
-
     }
   }
-  //console.log ( 'max oppdatert er ' + maxVal);
   return maxVal;
 };
+// TOM-ERIK STOP
 
 /**
  * Function to get the max value in a 2-dimensional array
@@ -108,9 +100,9 @@ THREEGRAPHS.Utils.prototype.getMinArr = function ( arr ){
   var minVal = arr[0][0];
   for( var i=0; i<arr.length; i++ ){
     for ( var j=0; j<arr[i].length; j++ ){
+	  // TOM-ERIK START
       if( parseInt(arr[i][j]) < minVal) minVal = arr[i][j];
-       //console.log ( 'check   i max' ||  (arr[i][j]));
-          //  console.log ( 'kept   ' || minVal);
+    // TOM-ERIK STOP
     }
   }
 
@@ -951,6 +943,7 @@ THREEGRAPHS.animate = function ( obj, type ){
  * BAR CHART OBJECT
  */
 
+// TOM-ERIK START
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
 
 try {
@@ -1137,6 +1130,7 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
 
 };
+// TOM-ERIK STOP
 
 THREEGRAPHS.BarChart.prototype = {
 
@@ -1461,11 +1455,15 @@ THREEGRAPHS.BarChart.prototype = {
       for ( var i=0; i<this.schema.rows.length; i++ ) {
         for (var j=0; j<this.schema.cols.length; j++ ) {
           this.bars.push( new THREEGRAPHS.BarCube(
-          this.schema.cols[this.schema.cols.length-j-1].color, i,this.schema.cols.length-j-1 , this.dataValues[i][this.schema.cols.length-j-1],
+          // TOM-ERIK START
+			this.schema.cols[this.schema.cols.length-j-1].color, i,this.schema.cols.length-j-1 , this.dataValues[i][this.schema.cols.length-j-1],
+          // TOM-ERIK STOP
                 THREEGRAPHS.Settings.valTextColor, 'light',
                 document.getElementById( THREEGRAPHS.Settings.labelId),
                 { row:this.schema.rows[i].name,
-                  col:this.schema.cols[schema.cols.length-j-1].name },
+                  // TOM-ERIK START
+				  col:this.schema.cols[schema.cols.length-j-1].name },
+                  // TOM-ERIK STOP
                   this.niceScale.niceMin,
                   this.niceScale.range,
                   this.valHeight,
