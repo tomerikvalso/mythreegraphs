@@ -1455,13 +1455,13 @@ THREEGRAPHS.BarChart.prototype = {
       for ( var i=0; i<this.schema.rows.length; i++ ) {
         for (var j=0; j<this.schema.cols.length; j++ ) {
           this.bars.push( new THREEGRAPHS.BarCube(
-          // TOM-ERIK START
+          // TOM-ERIK START . columns reversed
 			this.schema.cols[this.schema.cols.length-j-1].color, i,this.schema.cols.length-j-1 , this.dataValues[i][this.schema.cols.length-j-1],
           // TOM-ERIK STOP
                 THREEGRAPHS.Settings.valTextColor, 'light',
                 document.getElementById( THREEGRAPHS.Settings.labelId),
                 { row:this.schema.rows[i].name,
-                  // TOM-ERIK START
+                  // TOM-ERIK START columns reversed
 				  col:this.schema.cols[schema.cols.length-j-1].name },
                   // TOM-ERIK STOP
                   this.niceScale.niceMin,
