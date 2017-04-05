@@ -1024,6 +1024,7 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     // empty line
     try {
      rowsarray[linecounter] =  rowsarray[linecounter].replace(String.fromCharCode(13),"");
+     rowsarray[linecounter] = rowsarray[linecounter].split('"').join('')
     if ( rowsarray[linecounter].length == 0  ) {
        continue;
     }
@@ -1043,10 +1044,12 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
     var valuesfromcurrentline = rowsarray[linecounter].split(window.separatorchar);
 
+
     // remove all "
     for ( var k = 0 ; k < numberofcolumnsshowedasbars ; k++ ) {
        if (  valuesfromcurrentline[k] != undefined) {
-        valuesfromcurrentline[k] = valuesfromcurrentline[k].split('"').join('');
+   //    console.log('split join for ' + valuesfromcurrentline[k])
+ //       valuesfromcurrentline[k] = valuesfromcurrentline[k].split('"').join('');
        }
     }
 
