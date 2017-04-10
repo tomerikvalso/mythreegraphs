@@ -945,7 +945,7 @@ THREEGRAPHS.animate = function ( obj, type ){
 
 // TOM-ERIK START
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
-
+alert(document.getElementById("mySelect").value);
 try {
 
 var colors = ["123456", "654321", "981256"];
