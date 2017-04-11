@@ -945,7 +945,16 @@ THREEGRAPHS.animate = function ( obj, type ){
 
 // TOM-ERIK START
 THREEGRAPHS.BarChart = function ( schemafromfile ) {
-alert(document.getElementById("mySelect").value);
+var numberstocollapse = 0;
+if ( isNaN(document.getElementById("mySelect").value) ){
+ numberstocollapse = 0;
+}
+else {
+ numberstocollapse = document.getElementById("mySelect").value;
+}
+alert(numberstocollapse);
+alert(window.datacellvalueonaxis);
+
 try {
 
 var colors = ["123456", "654321", "981256"];
@@ -1053,28 +1062,56 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
        }
     }
 
-    if (window.datacellvalueonaxis == 'twoaxis') {
+    if (window.datacellvalueonaxis == 'twoaxis'   ) {
         console.log('twoaxis');
           for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
                     // value used on axis
-                    if (linecounter == 0  && columncounter==0) {
-                        prefix = valuesfromcurrentline[0];
+                        if (linecounter == 0  && columncounter==0) {
+                            prefix = valuesfromcurrentline[0];
+                            }
+                         // value used on the other axis
+                        else if( linecounter == 0 )  {
+                           schema.cols[columncounter-1].name= valuesfromcurrentline[columncounter];
                         }
-                     // value used on the other axis
-                    else if( linecounter == 0 )  {
-                       schema.cols[columncounter-1].name= valuesfromcurrentline[columncounter];
-                    }
-                    else if ( linecounter > 0  && columncounter == 0  ) {
-                        schema.rows[linecounter-1].name = prefix + ' ' +      valuesfromcurrentline[columncounter];
-                    }
-                    else if (linecounter > 0  && isNaN ( valuesfromcurrentline[columncounter] ) ) {
-                         schema.rows[linecounter-1].values[columncounter-1] = 0;
-                    }
-                    else {
-                        schema.rows[linecounter-1].values[columncounter-1] =   valuesfromcurrentline[columncounter];
-                    }
+                        else if ( linecounter > 0  && columncounter == 0  ) {
+                            schema.rows[linecounter-1].name = prefix + ' ' +      valuesfromcurrentline[columncounter];
+                        }
+                        else if (linecounter > 0  && isNaN ( valuesfromcurrentline[columncounter] ) ) {
+                             schema.rows[linecounter-1].values[columncounter-1] = 0;
+                        }
+                        else {
+                            schema.rows[linecounter-1].values[columncounter-1] =   valuesfromcurrentline[columncounter];
+                        }
+
+
           }
     }
+
+    if (window.datacellvalueonaxis == 'twoaxiscoll'   ) {
+   
+          for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
+                    // value used on axis
+                        if (linecounter == 0  && columncounter < numberstocollapse) {
+                            prefix = prefix + valuesfromcurrentline[columncounter];
+                            }
+                         // value used on the other axis
+                        else if( linecounter == 0 )  {
+                           schema.cols[columncounter-1].name= valuesfromcurrentline[columncounter];
+                        }
+                        else if ( linecounter > 0  && columncounter < numberstocollapse ) {
+                            schema.rows[linecounter-1].name = prefix + ' ' +      valuesfromcurrentline[columncounter];
+                        }
+                        else if (linecounter > 0  && isNaN ( valuesfromcurrentline[columncounter] ) ) {
+                             schema.rows[linecounter-1].values[columncounter-1] = 0;
+                        }
+                        else {
+                            schema.rows[linecounter-1].values[columncounter-1] =   valuesfromcurrentline[columncounter];
+                        }
+
+
+          }
+    }
+
     else if ( window.datacellvalueonaxis == 'oneaxis'  )    {
     console.log('oneaxis');
     for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
