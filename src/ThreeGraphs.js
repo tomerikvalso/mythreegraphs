@@ -952,8 +952,8 @@ if ( isNaN(document.getElementById("mySelect").value) ){
 else {
  numberstocollapse = document.getElementById("mySelect").value;
 }
-alert(numberstocollapse);
-alert(window.datacellvalueonaxis);
+//alert(numberstocollapse);
+///alert(window.datacellvalueonaxis);
 
 try {
 
@@ -993,7 +993,7 @@ if ( window.datacellvalueonaxis == null || window.datacellvalueonaxis == isNaN) 
     window.datacellvalueonaxis  = 'zeroaxis'
 }
 var numberofrowsshowedasbars = 0;
-if ( window.datacellvalueonaxis == 'twoaxis' || window.datacellvalueonaxis == 'oneaxis'){
+if ( window.datacellvalueonaxis == 'twoaxis' || window.datacellvalueonaxis == 'oneaxis' || 'twoaxiscoll'){
   numberofrowsshowedasbars =  rowsarray.length - 1
 } else {
   numberofrowsshowedasbars =  rowsarray.length
@@ -1088,7 +1088,7 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
     }
 
     if (window.datacellvalueonaxis == 'twoaxiscoll'   ) {
-   
+
           for   (  columncounter = 0 ; columncounter <  valuesfromcurrentline.length ; columncounter ++  ) {
                     // value used on axis
                         if (linecounter == 0  && columncounter < numberstocollapse) {
@@ -1102,10 +1102,10 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
                             schema.rows[linecounter-1].name = prefix + ' ' +      valuesfromcurrentline[columncounter];
                         }
                         else if (linecounter > 0  && isNaN ( valuesfromcurrentline[columncounter] ) ) {
-                             schema.rows[linecounter-1].values[columncounter-1] = 0;
+                             schema.rows[linecounter-1].values[columncounter-(document.getElementById("mySelect").value)-1] = 0;
                         }
                         else {
-                            schema.rows[linecounter-1].values[columncounter-1] =   valuesfromcurrentline[columncounter];
+                            schema.rows[linecounter-1].values[columncounter-(document.getElementById("mySelect").value)-1] =   valuesfromcurrentline[columncounter];
                         }
 
 
