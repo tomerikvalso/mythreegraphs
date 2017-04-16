@@ -1099,7 +1099,9 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
                            schema.cols[columncounter-1].name= valuesfromcurrentline[columncounter];
                         }
                         else if ( linecounter > 0  && columncounter < numberstocollapse ) {
-                            schema.rows[linecounter-1].name = prefix + ' ' +      valuesfromcurrentline[columncounter];
+
+                            prefix = prefix + ' ' +      valuesfromcurrentline[columncounter];
+                            schema.rows[linecounter-1].name = schema.rows[linecounter-1].name  +  valuesfromcurrentline[columncounter];
                         }
                         else if (linecounter > 0  && isNaN ( valuesfromcurrentline[columncounter] ) ) {
                              schema.rows[linecounter-1].values[columncounter-(numberstocollapse)] = 0;
