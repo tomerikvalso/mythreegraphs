@@ -1102,10 +1102,10 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
                             schema.rows[linecounter-1].name = prefix + ' ' +      valuesfromcurrentline[columncounter];
                         }
                         else if (linecounter > 0  && isNaN ( valuesfromcurrentline[columncounter] ) ) {
-                             schema.rows[linecounter-1].values[columncounter-(document.getElementById("mySelect").value)-1] = 0;
+                             schema.rows[linecounter-1].values[columncounter-(numberstocollapse)] = 0;
                         }
                         else {
-                            schema.rows[linecounter-1].values[columncounter-(document.getElementById("mySelect").value)-1] =   valuesfromcurrentline[columncounter];
+                            schema.rows[linecounter-1].values[columncounter-(numberstocollapse)] =   valuesfromcurrentline[columncounter];
                         }
 
 
