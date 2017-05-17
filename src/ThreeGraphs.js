@@ -1315,8 +1315,11 @@ THREEGRAPHS.BarChart.prototype = {
     }
 
     //*** Adding bars
+    console.log ( 'skjer denne');
+    alert ( window.reversecols);
     for ( var i=0; i<this.schema.rows.length; i++ ) {
       for (var j=0; j<this.schema.cols.length; j++ ) {
+ if ( window.reversecols != null && window.reversecols == '1') {
         this.bars.push(
           new THREEGRAPHS.BarCube(
                  this.schema.cols[this.schema.cols.length-j-1].color, i, this.schema.cols.length-j-1, this.dataValues[i][this.schema.cols.length-j-1],
@@ -1328,6 +1331,21 @@ THREEGRAPHS.BarChart.prototype = {
                   this.niceScale.range,
                   this.valHeight,
                   THREEGRAPHS.Settings.squareSize ) );
+                  }
+                  else {
+                   this.bars.push(
+                            new THREEGRAPHS.BarCube(
+                                                 this.schema.cols[j].color, i, j, this.dataValues[i][j],
+                                                   THREEGRAPHS.Settings.valTextColor, 'full',
+                                  document.getElementById( THREEGRAPHS.Settings.labelId ),
+                                  { row:this.schema.rows[i].name,
+                                    col:this.schema.cols[j].name },
+                                    this.niceScale.niceMin,
+                                    this.niceScale.range,
+                                    this.valHeight,
+                                    THREEGRAPHS.Settings.squareSize ) );
+
+                  }
         this.bars[this.bars.length-1].addBar(this.scene);
         // Adds the bars objects to ones that need to be checked for intersection
         // This is used for the moseover action
@@ -1454,20 +1472,20 @@ THREEGRAPHS.BarChart.prototype = {
       // ***************************
       for ( var i=0; i<this.schema.rows.length; i++ ) {
         for (var j=0; j<this.schema.cols.length; j++ ) {
-          this.bars.push( new THREEGRAPHS.BarCube(
-          // TOM-ERIK START . columns reversed
-			this.schema.cols[this.schema.cols.length-j-1].color, i,this.schema.cols.length-j-1 , this.dataValues[i][this.schema.cols.length-j-1],
-          // TOM-ERIK STOP
-                THREEGRAPHS.Settings.valTextColor, 'light',
-                document.getElementById( THREEGRAPHS.Settings.labelId),
-                { row:this.schema.rows[i].name,
-                  // TOM-ERIK START columns reversed
-				  col:this.schema.cols[schema.cols.length-j-1].name },
-                  // TOM-ERIK STOP
-                  this.niceScale.niceMin,
-                  this.niceScale.range,
-                  this.valHeight,
-                  THREEGRAPHS.Settings.squareSize ) );
+
+                     this.bars.push( new THREEGRAPHS.BarCube(
+                                    this.schema.cols[j].color, i, j, this.dataValues[i][j],
+                                    THREEGRAPHS.Settings.valTextColor, 'light',
+                                    document.getElementById( THREEGRAPHS.Settings.labelId),
+                                    { row:this.schema.rows[i].name,
+                                      col:this.schema.cols[j].name },
+                                      this.niceScale.niceMin,
+                                      this.niceScale.range,
+                                      this.valHeight,
+                                      THREEGRAPHS.Settings.squareSize ) );
+
+
+
           this.bars[this.bars.length-1].hasLabel = false;
           this.bars[this.bars.length-1].addBar(this.scene);
           // Adds the bars objects to ones that need to be checked for intersection
