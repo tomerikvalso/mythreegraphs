@@ -1116,14 +1116,20 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
   this.schema = schema || 0;
   this.dataValues = [];
-
+  var j_or_j_inversed = 0;
   for ( var i=0; i<schema.rows.length  ; i++ ){
     this.dataValues[i] = [];
     for( var j=0; j<schema.cols.length ; j++ ){
+     if ( window.reversecols != null && window.reversecols == '1'){
+        j_or_j_inversed = schema.cols.length-j-1;
+     } else
+     {
+       j_or_j_inversed = j;
+     }
      if (isNaN( schema.rows[i].values[j] )){
-     this.dataValues[i][schema.cols.length-j-1] = 0;
+     this.dataValues[i][j_or_j_inversed] = 0;
      } else {
-        this.dataValues[i][schema.cols.length-j-1] =   schema.rows[i].values[j];
+        this.dataValues[i][j_or_j_inversed] =   schema.rows[i].values[j];
      }
     }
   }
@@ -1319,20 +1325,6 @@ THREEGRAPHS.BarChart.prototype = {
     alert ( window.reversecols);
     for ( var i=0; i<this.schema.rows.length; i++ ) {
       for (var j=0; j<this.schema.cols.length; j++ ) {
- if ( window.reversecols != null && window.reversecols == '1') {
-        this.bars.push(
-          new THREEGRAPHS.BarCube(
-                 this.schema.cols[this.schema.cols.length-j-1].color, i, this.schema.cols.length-j-1, this.dataValues[i][this.schema.cols.length-j-1],
-                THREEGRAPHS.Settings.valTextColor, 'full',
-                document.getElementById( THREEGRAPHS.Settings.labelId ),
-                { row:this.schema.rows[i].name,
-                  col:this.schema.cols[j].name },
-                  this.niceScale.niceMin,
-                  this.niceScale.range,
-                  this.valHeight,
-                  THREEGRAPHS.Settings.squareSize ) );
-                  }
-                  else {
                    this.bars.push(
                             new THREEGRAPHS.BarCube(
                                                  this.schema.cols[j].color, i, j, this.dataValues[i][j],
@@ -1345,7 +1337,7 @@ THREEGRAPHS.BarChart.prototype = {
                                     this.valHeight,
                                     THREEGRAPHS.Settings.squareSize ) );
 
-                  }
+
         this.bars[this.bars.length-1].addBar(this.scene);
         // Adds the bars objects to ones that need to be checked for intersection
         // This is used for the moseover action
