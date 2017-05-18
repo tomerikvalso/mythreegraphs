@@ -943,8 +943,26 @@ THREEGRAPHS.animate = function ( obj, type ){
  * BAR CHART OBJECT
  */
 
+THREEGRAPHS.BarChart = function ( schema ) {
+
+  this.schema = schema || 0;
+  this.dataValues = [];
+  for ( var i=0; i<schema.rows.length; i++ ){
+    this.dataValues[i] = [];
+    for( var j=0; j<schema.cols.length; j++ ){
+      this.dataValues[i][j] = schema.rows[i].values[j];
+    }
+  }
+
+};
+
+
+/**
+ * BAR CHART FROM FILE OBJECT
+ */
+
 // TOM-ERIK START
-THREEGRAPHS.BarChart = function ( schemafromfile ) {
+THREEGRAPHS.BarChartFromFile = function ( schemafromfile ) {
 
 try {
 
@@ -1136,6 +1154,412 @@ for  ( linecounter = 0 ; linecounter < rowsarray.length  ; linecounter ++  ) {
 
 
 };
+
+THREEGRAPHS.BarChartFromFile.prototype = {
+
+  canvas: null,
+  domContainer: null,
+  constructor: THREEGRAPHS.BarChart,
+  controls: null,
+  scene: null,
+  camera: null,
+  camPos: { x: 500, y: 500, z: 1600 },
+  renderer: null,
+  projector: null,
+  intersectedId: null,
+  INTERSECTED: null,
+  niceScale: null,
+  bars: [],
+  intersobj: [],
+  sTextVals: [],
+  sTextRows: [],
+  sTextCols: [],
+
+
+  initSceneVars : function () { // Initiates the main scene variable
+
+    var utils =  new THREEGRAPHS.Utils();
+
+    // Inits deviation position of the ground from the center
+    THREEGRAPHS.Settings.yDeviation = -(THREEGRAPHS.Settings.valHeight/2);
+    THREEGRAPHS.Settings.zDeviation = -(this.schema.cols.length*
+                                        THREEGRAPHS.Settings.squareStep/2);
+    THREEGRAPHS.Settings.xDeviation = -(this.schema.rows.length*
+                                        THREEGRAPHS.Settings.squareStep/2);
+
+    // Inits the value scale variables
+    this.niceScale = new THREEGRAPHS.NiceScale (
+
+      utils.getMinArr ( this.dataValues ),
+      utils.getMaxArr ( this.dataValues )
+    );
+    this.niceScale.calculate ();
+
+    // Removes previous canvas if exists
+    var exCanEl = document.getElementsByTagName("canvas");
+    for (var i = exCanEl.length - 1; i >= 0; i--) {
+        exCanEl[i].parentNode.removeChild(exCanEl[i]);
+    }
+
+
+    // Getting the projector for picking objects
+    this.projector = new THREE.Projector();
+
+    // Creating new scene
+    this.scene = new THREE.Scene();
+
+    // Setting the camera
+    this.camera = new THREE.PerspectiveCamera( 60,
+                                          window.innerWidth/window.innerHeight,
+                                          1,
+                                          5000 );
+    this.camera.position.x = this.camPos.x;
+    this.camera.position.y = this.camPos.y;
+    this.camera.position.z = this.camPos.z;
+
+  },
+
+  initWebGLScene: function() { // Initiates a WEBGL Scene
+
+    // Setting the renderer (with shadows)
+    if ( !this.canvas ) {
+      this.renderer = new THREE.WebGLRenderer( { antialias: true } );
+    }else{
+      this.renderer = new THREE.WebGLRenderer( { antialias: true,
+                                                 canvas: this.canvas } );
+    }
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
+
+    // Switch off the shadows for safari due to the three.js bug with it
+    if ( navigator.userAgent.indexOf('Safari') == -1 ) {
+      this.renderer.shadowMapEnabled = true;
+      this.renderer.shadowMapSoft = true;
+    }
+
+    if ( !this.domContainer ) {
+      this.domContainer = document.createElement( 'div' );
+      document.body.appendChild( this.domContainer );
+    } else {
+      this.domContainer = document.getElementById ( this.domContainer );
+    }
+
+    this.domContainer.appendChild( this.renderer.domElement );
+
+    //*** Adding the grounds
+    // material for the grounds
+    var gridTex = THREE.ImageUtils.loadTexture(
+                   THREEGRAPHS.Settings.staticUrl+"/grid_pattern1.jpg");
+    gridTex.wrapS = gridTex.wrapT = THREE.RepeatWrapping;
+    gridTex.repeat.set( 5, 5 );
+
+    var gridTex2 = THREE.ImageUtils.loadTexture(
+                    THREEGRAPHS.Settings.staticUrl+"/grid_pattern2.jpg");
+    gridTex2.wrapS = gridTex2.wrapT = THREE.RepeatWrapping;
+    gridTex2.repeat.set( this.schema.rows.length, this.schema.cols.length );
+
+    var materialX = new THREE.MeshPhongMaterial({
+      ambient : 0x444444,
+      color : 0x777777,
+      shininess : 70,
+      specular : 0x888888,
+      shading : THREE.SmoothShading,
+      side: THREE.DoubleSide,
+      map:gridTex2
+    });
+
+    var materialYZ = new THREE.MeshPhongMaterial({
+      ambient : 0x444444,
+      color : 0x999999,
+      shininess : 70,
+      specular : 0x888888,
+      shading : THREE.SmoothShading,
+      side: THREE.DoubleSide,
+      map:gridTex
+    });
+
+    var sqStep = THREEGRAPHS.Settings.squareStep;
+    var valH = THREEGRAPHS.Settings.valHeight
+
+    // Creating the ground-x
+    var geometry = new THREE.PlaneGeometry( sqStep*this.schema.rows.length,
+                                            sqStep*this.schema.cols.length );
+
+    var groundX = new THREE.Mesh( geometry, materialX );
+    groundX.rotation.x -= Math.PI/2;
+    groundX.castShadow = false;
+    groundX.receiveShadow = true;
+    groundX.position.y = THREEGRAPHS.Settings.yDeviation;
+    this.scene.add( groundX );
+
+    // Creating the ground-y
+    var geometry = new THREE.PlaneGeometry(
+                           sqStep*this.schema.rows.length,
+                           valH);
+
+    var groundY = new THREE.Mesh( geometry, materialYZ );
+    groundY.castShadow = false;
+    groundY.receiveShadow = true;
+    groundY.position.z = THREEGRAPHS.Settings.zDeviation;
+    this.scene.add( groundY );
+
+    // craating the groynd-z
+    var geometry = new THREE.PlaneGeometry(
+                          sqStep*this.schema.cols.length,
+                          valH );
+
+    var groundZ = new THREE.Mesh( geometry, materialYZ );
+    groundZ.rotation.y -= Math.PI/2;
+    groundZ.castShadow = false;
+    groundZ.receiveShadow = true;
+    groundZ.position.x = THREEGRAPHS.Settings.xDeviation;
+    this.scene.add( groundZ );
+    //////////////////
+
+    //*** Adding texts for the scales
+    for( var i=0; i<this.schema.cols.length; i++ ) {
+      this.sTextCols[i] = new THREEGRAPHS.ScaleText( this.schema.cols[this.schema.cols.length-i-1].name,
+                                "col", i, this.schema.cols[this.schema.cols.length-i-1].color );
+      this.sTextCols[i].addText(groundX);
+    }
+
+    for( var i=0; i<this.schema.rows.length; i++ ) {
+      this.sTextRows[i] = new THREEGRAPHS.ScaleText( this.schema.rows[i].name,
+                                "row", i, THREEGRAPHS.Settings.scaleTextColor);
+      this.sTextRows[i].addText(groundX);
+    }
+
+    var yStep = THREEGRAPHS.Settings.valHeight/this.niceScale.tickNum;
+    for ( var i=0; i<= this.niceScale.tickNum; i++ ) {
+      var val = this.niceScale.niceMin + i*this.niceScale.tickSpacing;
+      var stringVal = val.toString();
+      this.sTextVals[i] = new THREEGRAPHS.ScaleText(stringVal, "val", i,
+                                   this.scaleTextColor, yStep);
+      this.sTextVals[i].addText(groundZ);
+    }
+
+    //*** Adding bars
+    console.log ( 'skjer denne');
+    alert ( window.reversecols);
+    for ( var i=0; i<this.schema.rows.length; i++ ) {
+      for (var j=0; j<this.schema.cols.length; j++ ) {
+                   this.bars.push(
+                            new THREEGRAPHS.BarCube(
+                                                 this.schema.cols[j].color, i, j, this.dataValues[i][j],
+                                                   THREEGRAPHS.Settings.valTextColor, 'full',
+                                  document.getElementById( THREEGRAPHS.Settings.labelId ),
+                                  { row:this.schema.rows[i].name,
+                                    col:this.schema.cols[j].name },
+                                    this.niceScale.niceMin,
+                                    this.niceScale.range,
+                                    this.valHeight,
+                                    THREEGRAPHS.Settings.squareSize ) );
+
+
+        this.bars[this.bars.length-1].addBar(this.scene);
+        // Adds the bars objects to ones that need to be checked for intersection
+        // This is used for the moseover action
+        this.intersobj[this.bars.length-1] = this.bars[this.bars.length-1].barobj;
+        this.intersobj[this.bars.length-1].elemId = this.bars.length-1;
+      }
+    }
+
+    //*** Adding the lights
+    var light = new THREE.DirectionalLight( 0x999999 );
+    light.position.set( 1, -1, 1 ).normalize();
+    this.scene.add( light );
+
+    var light = new THREE.DirectionalLight( 0x999999 );
+    light.position.set( -1, 1, -1 ).normalize();
+    this.scene.add( light );
+
+    light = new THREE.SpotLight( 0xd8d8d8, 2 );
+    light.position.set( 600, 3000, 1500 );
+    light.target.position.set( 0, 0, 0 );
+
+    light.shadowCameraNear = 1000;
+    light.shadowCameraFar = 5000;
+    light.shadowCameraFov = 40;
+    light.castShadow = true;
+    light.shadowDarkness = 0.3;
+    light.shadowBias = 0.0001;
+    this.scene.add( light );
+    ////////////////////
+
+  },
+
+  initCanvasScene: function() {
+
+    var squareStep = THREEGRAPHS.Settings.squareStep;
+    var valHeight = THREEGRAPHS.Settings.valHeight;
+
+      // Setting the Canvas renderer
+      if ( !this.canvas ) {
+        this.renderer = new THREE.CanvasRenderer(  );
+      }else{
+        this.renderer = new THREE.CanvasRenderer( { canvas: this.canvas } );
+      }
+      this.renderer.setSize( window.innerWidth, window.innerHeight );
+
+      if ( !this.domContainer ) {
+        this.domContainer = document.createElement( 'div' );
+        document.body.appendChild( this.domContainer );
+      } else {
+        this.domContainer = document.getElementById ( this.domContainer );
+      }
+
+      this.domContainer.appendChild( this.renderer.domElement );
+
+
+      //*** Adding the grounds
+      // *********************
+
+      var groundSizeX = squareStep*this.schema.rows.length;
+      var groundSizeY = squareStep*this.schema.cols.length;
+      var lineMaterial = new THREE.LineBasicMaterial( { color: 0xaaaaaa,
+                                                        opacity: 0.8 } );
+
+      // Adding the X ground
+
+      var geometry = new THREE.Geometry();
+      // putting the Y vertices
+      for ( var i = 0; i <= groundSizeY; i += squareStep ) {
+        geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
+        geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
+      }
+      // putting the X vertices
+      for ( var i = 0; i <= groundSizeX; i += squareStep ) {
+        geometry.vertices.push( new THREE.Vector3( i, 0, 0 ) );
+        geometry.vertices.push( new THREE.Vector3( i, 0, groundSizeY ) );
+      }
+
+      // Creating the line object and positioning it
+      var groundX = new THREE.Line( geometry, lineMaterial );
+      groundX.type = THREE.LinePieces;
+      groundX.position.y = THREEGRAPHS.Settings.yDeviation;
+      groundX.position.z = THREEGRAPHS.Settings.zDeviation;
+      groundX.position.x = THREEGRAPHS.Settings.xDeviation;
+      this.scene.add( groundX );
+
+      // Adding the Y ground
+
+      var geometry = new THREE.Geometry();
+      // putting the X vertices
+      for ( var i = 0; i <= valHeight; i += squareStep ) {
+        geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
+        geometry.vertices.push( new THREE.Vector3(  groundSizeX, 0, i ) );
+      }
+
+      // Creating the line object and positioning it
+      var groundY = new THREE.Line( geometry, lineMaterial );
+      groundY.rotation.set( Math.PI/2, 0, 0 );
+      groundY.type = THREE.LinePieces;
+      groundY.position.y = -THREEGRAPHS.Settings.yDeviation;
+      groundY.position.z = THREEGRAPHS.Settings.zDeviation;
+      groundY.position.x = THREEGRAPHS.Settings.xDeviation;
+      this.scene.add( groundY );
+
+      // Adding the Y ground
+
+      var geometry = new THREE.Geometry();
+      // putting the X vertices
+      for ( var i = 0; i <= valHeight; i += squareStep ) {
+        geometry.vertices.push( new THREE.Vector3(  0, 0, i ) );
+        geometry.vertices.push( new THREE.Vector3(  groundSizeY, 0, i ) );
+      }
+
+      // Creating the line object and positioning it
+      var groundZ = new THREE.Line( geometry, lineMaterial );
+      groundZ.rotation.set( Math.PI/2, 0, Math.PI/2 );
+      groundZ.type = THREE.LinePieces;
+      groundZ.position.y = -THREEGRAPHS.Settings.yDeviation;
+      groundZ.position.z = THREEGRAPHS.Settings.zDeviation;
+      groundZ.position.x = THREEGRAPHS.Settings.xDeviation;
+      this.scene.add( groundZ );
+
+
+      //*** Adding bars ************
+      // ***************************
+      for ( var i=0; i<this.schema.rows.length; i++ ) {
+        for (var j=0; j<this.schema.cols.length; j++ ) {
+
+                     this.bars.push( new THREEGRAPHS.BarCube(
+                                    this.schema.cols[j].color, i, j, this.dataValues[i][j],
+                                    THREEGRAPHS.Settings.valTextColor, 'light',
+                                    document.getElementById( THREEGRAPHS.Settings.labelId),
+                                    { row:this.schema.rows[i].name,
+                                      col:this.schema.cols[j].name },
+                                      this.niceScale.niceMin,
+                                      this.niceScale.range,
+                                      this.valHeight,
+                                      THREEGRAPHS.Settings.squareSize ) );
+
+
+
+          this.bars[this.bars.length-1].hasLabel = false;
+          this.bars[this.bars.length-1].addBar(this.scene);
+          // Adds the bars objects to ones that need to be checked for intersection
+          // This is used for the moseover action
+          this.intersobj[this.bars.length-1] = this.bars[this.bars.length-1].barobj;
+          this.intersobj[this.bars.length-1].elemId = this.bars.length-1;
+        }
+      }
+
+      //******************************
+
+
+      //*** Adding the lights ********
+      //******************************
+      var ambientLight = new THREE.AmbientLight( 0xffffff );
+      this.scene.add( ambientLight );
+
+      var directionalLight = new THREE.DirectionalLight( Math.random() * 0xffffff );
+      directionalLight.position.x = 0.4;
+      directionalLight.position.y = 0.4;
+      directionalLight.position.z = - 0.2;
+      directionalLight.position.normalize();
+      this.scene.add( directionalLight );
+
+      var directionalLight = new THREE.DirectionalLight( Math.random() * 0xffffff );
+      directionalLight.position.x = - 0.2;
+      directionalLight.position.y = 0.5;
+      directionalLight.position.z = - 0.1;
+      directionalLight.position.normalize();
+      this.scene.add( directionalLight );
+      //******************************
+
+    },
+
+
+    // *** SCENE INITIALIZATION ***************************************************
+    // ****************************************************************************
+
+  init: function() {
+
+    var utils = new THREEGRAPHS.Utils( );
+
+    // Detecting the renderer:
+    var browserRender = utils.detectRenderer ( );
+
+    // Init vars and scene depending on the renderer
+    if ( browserRender == 'webgl' ) {
+      this.initSceneVars ();
+      this.initWebGLScene ();
+    }
+    else if ( browserRender == 'canvas' ) {
+      this.initSceneVars ();
+      this.initCanvasScene ();
+    }
+    else {
+      utils.nonSupportedBrowsers();
+    }
+
+    this.controls = utils.mouseControls ( this.renderer, this.camera , 500, 3500 );
+    THREEGRAPHS.animate ( this, 'bar' );
+
+  }
+
+};
+
 // TOM-ERIK STOP
 
 THREEGRAPHS.BarChart.prototype = {

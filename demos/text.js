@@ -13,7 +13,7 @@ window.onload = function() {
 				reader.onload = function(e) {
 					//fileDisplayArea.innerText = reader.result;
 				      window.myinit = reader.result;
-             newBarChart = new THREEGRAPHS.BarChart ( reader.result );
+             newBarChart = new THREEGRAPHS.BarChartFromFile ( reader.result );
                     newBarChart.init();
 
 
